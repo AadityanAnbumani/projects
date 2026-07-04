@@ -1,0 +1,130 @@
+---
+title: Build a Pocket Rave with Arduino
+author: Shiyamaladevi R S
+uid: ckIKPzTze9TMFFPNXZkKTfjDBiz1
+description: Turn an Arduino UNO R4 and an OLED display into a pocket-sized light show with kinetic typography, a dancing stick figure, and particle effects, all without a single blocking delay().
+datePublished: 2026-07-04
+published: beta
+header: https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fbuild-a-pocket-rave-with-arduino%2Fbanner.webp?alt=media
+bannerImage: https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fbuild-a-pocket-rave-with-arduino%2Fbanner.webp?alt=media
+readTime: 45
+prerequisites: Arduino IDE installed, C++ basics
+versions: Arduino UNO R4, Adafruit SSD1306, Adafruit GFX
+courses:
+  - cpp
+tags:
+  - intermediate
+---
+
+# Build a Pocket Rave with Arduino
+
+For the June Codédex Tutorial Challenge, I decided to turn my current favorite song into a tiny physical object. I built a Pocket Rave using an Arduino, a tiny screen, and just four wires. The best part? We are plugging everything straight in—no messy breadboards required!
+
+Here is exactly how I built it,
+
+Prefer to watch the whole thing come together? Here's the full walkthrough:
+
+<video width="100%" controls>
+  <source src="https://github.com/user-attachments/assets/e2d97b5f-0b22-4e0e-852f-862f90daa4f4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+## The Toys We Are Playing With (The Hardware)
+
+To build our pocket-sized concert, we only need:
+
+- **The Brain (The Microcontroller):** For this project, I used an Arduino Uno R4 Minima. But what is a microcontroller? Think of it as a tiny, pocket-sized computer! Just like your big laptop has a brain to think, memory to remember things, and ports to plug in a mouse, a microcontroller has all of those exact same things—just shrunk down to the size of a cracker! It doesn’t know how to do anything until we give it a list of rules (our code). Once we give it instructions, it bosses the other parts around.
+
+  **Pro-Tip: Swapping the Brain!** You don't have to use the Uno R4! Microcontrollers are like different breeds of dogs—they might look a little different, but they all love to play fetch. You can totally use an Arduino Nano, an ESP32 (which even has built-in Wi-Fi and Bluetooth!), or a Raspberry Pi Pico. As long as your new board has an I2C connection (more on that below!), you can throw the exact same pocket rave.
+
+- **The Tiny TV (OLED Display):** This is a super small, super bright screen. "OLED" is just a fancy way of saying "a screen made of thousands of teeny-tiny lightbulbs that can turn on and off really fast."
+
+  Our Tiny TV has a technical name: the SSD1306 128x64 OLED. 128x64 means the screen is a grid made of 128 tiny lights across and 64 lights down. To make the Arduino talk to this screen, they use a language called I2C (Inter-Integrated Circuit).
+
+  Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate 10, 25!"), and the screen instantly follows the order. That's why we only need those two special wires: SDA (the data tube) and SCL (the clock that keeps the deliveries on schedule).
+
+- **The Messengers (4 Jumper Wires):** These are essentially just strings of metal that carry electricity and secret messages between the Brain and the Tiny TV.
+
+## Connecting the Dots (The Wiring)
+
+How do we get the Brain to talk to the TV? We connect them with our 4 messenger wires! Here is the super easy secret to remembering how to wire this up forever:
+
+- **VCC goes to 3.3V:** VCC is the "food." The TV needs energy to light up, so we plug it into the 3.3-volt power pin on the Arduino.
+- **GND goes to GND:** This is the "Ground." It gives the electricity a safe place to go after it powers the TV. Think of it like a pair of shoes keeping everything grounded.
+- **SDA goes to A4 (The Data Wire):** SDA carries the actual pictures and words to the screen.
+- **SCL goes to A5 (The Clock Wire):** SCL keeps the rhythm and timing so the screen doesn't get confused.
+
+<ImageZoom
+  src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fbuild-a-pocket-rave-with-arduino%2Fconnection-guide.webp?alt=media"
+  style={{ width: "100%", height: "auto" }}
+  alt="Wiring diagram"
+/>
+
+## Writing the Magic Spells (The Code)
+
+Now for the fun part: teaching the Brain how to throw a party using C++!
+
+### 1. Giving the Brain a Dictionary
+
+At the very top of our code, we write things like:
+
+```cpp
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+```
+
+Think of these like giving the Arduino a dictionary. Instead of teaching the Arduino what a "screen" is from scratch, we just hand it a book that says, "Here is how you talk to the tiny TV."
+
+### 2. Drawing with 1s and 0s
+
+```cpp
+const unsigned char heart_bmp[] PROGMEM = {
+  0b01010000,
+  0b11111000, ...
+};
+```
+
+Computers only understand two numbers: 0 (off) and 1 (on). To draw the little floating hearts on our screen, we literally draw a picture using 1s and 0s! A 1 tells the screen to turn a tiny lightbulb on, and a 0 tells it to leave it dark.
+
+### 3. The Ultimate Secret: millis() vs delay()
+
+Usually, when beginners want a computer to wait before doing the next thing, they use a command called `delay()`. But `delay()` is like telling the Arduino to go to sleep! If the Arduino is asleep, it can't update the lyrics and make the stick figure dance at the same time. Everything freezes.
+
+To fix this, we use `millis()`. Instead of going to sleep, `millis()` tells the Arduino to constantly check a stopwatch. It says, "Keep looking at your watch! When 1.8 seconds pass, change the lyrics. When 230 milliseconds pass, make the guy dance!" This is called non-blocking code, and it lets our stick figure dance smoothly while the song lyrics scroll by!
+
+### 4. Choreographing the Dance
+
+When people see the little guy dancing on the screen, they usually think it's a tiny video or a GIF. Nope! We are literally drawing him from scratch, 60 times a second, using a digital Etch-A-Sketch.
+
+```cpp
+display.drawCircle();
+display.drawLine();
+```
+
+Instead of an image, we use math to draw shapes. How does he move? Remember our `millis()` stopwatch? Every 230 milliseconds, a variable called `danceBeat` flips between 0 and 1.
+
+```cpp
+int danceBeat = (timeNow / 230) % 2;
+int guyY = 25 + (danceBeat == 1 ? -4 : 0);
+```
+
+I love choreographing dances, so I had to make my stick figure bounce to the exact rhythm of the song. The song is 130 Beats Per Minute (BPM). Doing a little bit of math, that means every 230 milliseconds, a fast, club-style eighth-note beat hits!
+
+Every time the stopwatch hits that 230ms mark, we tell the stick figure to throw his arms up and bounce his Y-coordinate up by 4 pixels.
+
+## Try It Yourself!
+
+You don't even need physical hardware to try this! I built a completely free, browser-based digital twin of this exact project so you can play with the code and put your own favorite song lyrics into the pocket rave.
+
+- Test it on [Wokwi](https://wokwi.com/projects/467528374050755585)
+- Test it on [Tinkercad](https://www.tinkercad.com/things/iR0SCeiSxOJ-pocket-concert-lcd-music-visualizer) (connection diagram and code differs, since it uses an LCD instead of an OLED)
+- [Full Source Code (GitHub)](https://github.com/Shiyx27/OLED_Pocket_Concert)
+
+(P.S. Music in the video is purely for the vibes......at this budget, you're getting a silent disco, not a JBL speaker lol)
+
+## The Official Scrolls
+
+- [Arduino UNO R4 Minima Docs](https://docs.arduino.cc/hardware/uno-r4-minima/)
+- [Adafruit GFX Graphics Library](https://learn.adafruit.com/adafruit-gfx-graphics-library)
+- [Arduino Wire (I2C) Reference](https://docs.arduino.cc/language-reference/en/functions/communication/wire/)
