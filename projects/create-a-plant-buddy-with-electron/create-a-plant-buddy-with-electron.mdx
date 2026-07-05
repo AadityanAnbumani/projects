@@ -8,7 +8,7 @@ published: beta
 header: https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fcreate-a-plant-buddy-with-electron%2Fbanner.webp?alt=media
 bannerImage: https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fcreate-a-plant-buddy-with-electron%2Fbanner.webp?alt=media
 readTime: 60
-prerequisites: HTML, CSS, JavaScript fundamentals
+prerequisites: HTML, CSS, JavaScript
 versions: Electron 42.4.0
 courses:
   - html
@@ -22,7 +22,7 @@ tags:
 
 ## Introduction
 
-What if your desktop had its own little Tamagotchi, except instead of feeding a digital pet, you're keeping a tiny plant alive? That's exactly what we're building today, a tiny desktop app that mimics a virtual plant you need to take care of! 🌱
+What if your desktop had its own little [Tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi), except instead of feeding a digital pet, you're keeping a lil' tiny plant alive? That's exactly what we're building today, a tiny ✨desktop app✨ with a cute virtual plant you need to take care of! 🪴
 
 Here's a quick look at it in action:
 
@@ -61,7 +61,7 @@ npm install --save-dev electron
 npm install --save-dev electron-reload
 ```
 
-The `--save-dev` flag tells npm these are development tools, meaning they're only needed while building the app and not in the final product. `electron-reload` is especially handy because it automatically refreshes the app every time you save a file, so you're not constantly restarting it manually.s
+The `--save-dev` flag tells npm these are development tools, meaning they're only needed while building the app and not in the final product. `electron-reload` is especially handy because it automatically refreshes the app every time you save a file, so you're not constantly restarting it manually.
 
 We'll only have to restart the app whenever we add something to the **main.js**, since it controls the main process and any changes here need a full restart to take effect, unlike the **index.html**, **style.css**, and **script.js**.
 
@@ -90,7 +90,8 @@ plant-buddy/
 ```
 
 ### Configuring package.json
-Open the `package.json` file that was just generated and look for the `"main"` field. Change it from `"index.js"` to `"main.js"`. This tells Electron which file to run first, which will be our main process file.
+
+Open the **package.json** file that was just generated and look for the `"main"` field. Change it from `"index.js"` to `"main.js"`. This tells Electron which file to run first, which will be our main process file.
 
 Also replace the default `"test"` script with `"start": "electron ."` because this is what runs your app when you type `npm start` in the terminal. 
 
@@ -204,7 +205,7 @@ Just below the `<title>` tag, add the font link from [Google Fonts](https://font
   <link rel="stylesheet" href="style.css" />
 ```
 
-We're using **Pixelify Sans** for that fun retro pixel feel. The `preconnect` links help the browser load it faster by connecting to Google Fonts early. Right below it we link `style.css` so our styles are applied to the app.
+We're using **Pixelify Sans** for that fun retro pixel feel. The `preconnect` links help the browser load it faster by connecting to Google Fonts early. Right below it we link **style.css** so our styles are applied to the app.
 
 Then inside the `<body>` at the very bottom, add your script:
 
@@ -256,7 +257,7 @@ Next, paste this inside the `app` div to build the title bar:
     </div>
 ```
 
-The `<h1>` tag holds your plant's name, so feel free to change `"Plant's name"` to whatever you want to call yours! Next to it are the minimize and close buttons, each using the icons from the `assets/` folder we added earlier.
+The `<h1>` tag holds your plant's name, so feel free to change `"Plant's name"` to whatever you want to call yours! Next to it are the minimize and close buttons, each using the icons from the **assets/** folder we added earlier.
 
 #### Plant Zone
 Then add the plant zone below the title bar:
@@ -356,7 +357,12 @@ I know, it looks boring. Let's style it with CSS! 🎨
 
 ### CSS
 
-First, close the app with <kbd>ctrl</kbd> + <kbd>c</kbd> (or <kbd>cmd</kbd> + <kbd>C</kbd> on Mac) in your terminal. Then open **main.js** and add these two lines between `center` and `alwaysOnTop` attributes:
+First, close the app in the terminal with:
+
+- Windows: <kbd>ctrl</kbd> + <kbd>c</kbd>
+- Mac: <kbd>cmd</kbd> + <kbd>c</kbd>
+
+Then open **main.js** and add these two lines between `center` and `alwaysOnTop` attributes:
 
 ```js
     frame: false,
@@ -459,7 +465,7 @@ Then add the title bar styles:
 }
 ```
 
-The `.title-bar` uses flexbox to push the plant's name to the left and the buttons to the right. The plant's name is styled in green to match the app's color scheme, and the buttons are stripped of any default border and background so only the icons from the `assets/` folder show through.
+The `.title-bar` uses flexbox to push the plant's name to the left and the buttons to the right. The plant's name is styled in green to match the app's color scheme, and the buttons are stripped of any default border and background so only the icons from the **assets/** folder show through.
 
 #### Plant Zone
 Now add the plant zone styles:
@@ -669,7 +675,7 @@ Now, let's bring our plant buddy to life with JavaScript! ✨
 ### JavaScript
 We've reached the last part of the tutorial! With JavaScript, we're going to make the app functional. We'll start with the title bar buttons, then move to the water meter mechanic that keeps your plant alive.
 
-First, close the app with `Ctrl + C` (or `Cmd + C` on Mac) in your terminal, same as we did in the CSS. Then open `main.js` and add `ipcMain` to your import:
+First, close the app with <kbd>ctrl</kbd> + <kbd>C</kbd> (or <kbd>cmd</kbd> + <kbd>c</kbd> on Mac) in your terminal, same as we did in the CSS. Then open **main.js** and add `ipcMain` to your import:
 
 ```js
 const { app, BrowserWindow, ipcMain } = require('electron');
@@ -685,10 +691,11 @@ Next, right after `win.loadFile('index.html')`, add these two listeners:
 
 `ipcMain` listens for messages sent from your HTML and JavaScript side of the app. Here we're setting up two channels: one called `window:minimize` and another called `window:close`. Whenever either one receives a message, it calls the matching Electron method on the window, `win.minimize()` or `win.close()`.
 
-Then run `npm start` again to restart the app with the updated `main.js`.
+Then run `npm start` again to restart the app with the updated **main.js**.
 
 #### Title Bar Buttons
-Now let's wire up the buttons themselves. Open `script.js` and add this at the top:
+
+Now let's wire up the buttons themselves. Open **script.js** and add this at the top:
 
 ```js
 // Title bar buttons
@@ -702,7 +709,7 @@ minimizeBtn.addEventListener("click", () =>
 closeBtn.addEventListener("click", () => ipcRenderer.send("window:close"));
 ```
 
-While `ipcMain` listens on the Electron side, `ipcRenderer` is what sends messages from the app's interface. We grab both buttons using `getElementById`, then add a click listener to each one. When clicked, `minimizeBtn` sends a message on the `window:minimize` channel and `closeBtn` sends one on `window:close`, which are the exact channel names we set up in `main.js`. That's what connects the two files together.
+While `ipcMain` listens on the Electron side, `ipcRenderer` is what sends messages from the app's interface. We grab both buttons using `getElementById()`, then add a click listener to each one. When clicked, `minimizeBtn` sends a message on the `window:minimize` channel and `closeBtn` sends one on `window:close`, which are the exact channel names we set up in **main.js**. That's what connects the two files together.
 
 Now for the core mechanic. Let's break it into digestible pieces since this is the most complex part of the app.
 
@@ -742,7 +749,7 @@ const water_timer_el = water_btn.querySelector(".timer");
 const restart_btn = document.getElementById("restart-btn");
 ```
 
-Most of these are simple `getElementById` calls, but bars is worth a closer look. Instead of writing out `bar-1` through `bar-10` manually, `Array.from` generates an array of 10 elements automatically by looping from 0 to 9 and grabbing `bar-${i + 1}` each time. This saves us from repeating the same line ten times.
+Most of these are simple `getElementById()` calls, but bars is worth a closer look. Instead of writing out `bar-1` through `bar-10` manually, `Array.from` generates an array of 10 elements automatically by looping from 0 to 9 and grabbing `bar-${i + 1}` each time. This saves us from repeating the same line ten times.
 
 Now for the function that updates everything you see on screen. This is the biggest piece of logic in the app, so let's go through it one part at a time:
 
@@ -798,7 +805,7 @@ Now comes the mood logic:
 }
 ```
 
-This is a simple if/else chain that checks which range `water_level` falls into and updates four things at once: the plant's sprite, the mood tag text, the care reminder message, and which button is visible. Above 74% your plant is thriving, between 40 and 74% it's okay, between 1 and 39% it's thirsty, and at exactly 0% it's wilted. Notice that only the wilted state swaps the buttons, hiding the water button and showing the restart button instead, since that's the game over state.
+This is a simple `if`/`else` chain that checks which range `water_level` falls into and updates four things at once: the plant's sprite, the mood tag text, the care reminder message, and which button is visible. Above 74% your plant is thriving, between 40 and 74% it's okay, between 1 and 39% it's thirsty, and at exactly 0% it's wilted. Notice that only the wilted state swaps the buttons, hiding the water button and showing the restart button instead, since that's the game over state.
 
 Now let's make the water level actually drain over time:
 
@@ -865,7 +872,7 @@ restart_btn.addEventListener("click", () => {
 
 This resets everything back to its starting state. `water_level` goes back to 100, the cooldown flag and button are reset so the water button is immediately usable again, and `clearInterval(cooldown_timer)` makes sure any leftover cooldown timer from before doesn't keep running in the background. Finally, `updateUI()` refreshes the screen so your plant shows up thriving again. 🔁
 
-Last but not least, add this line at the very bottom of `script.js`:
+Last but not least, add this line at the very bottom of **script.js**:
 
 ```js
 updateUI();
@@ -889,7 +896,7 @@ This is just the starting point though. If you'd like to take this further, you 
 
 ### Advanced Features
 
-Challenge yourself to add more advanced features to your application. Here are a few ideas to expand on it:
+Challenge yourself to add more advanced features to your application. Here are a few ideas:
 
 * A sunlight mechanic that gives your plant certain boosts
 * Notifications that pop up when your plant needs water, even if the app is minimized
@@ -907,6 +914,6 @@ Here are some extra resources in case you want to dig deeper or explore the full
 
 <ImageZoom
   src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fcreate-a-plant-buddy-with-electron%2Fleafy-stem-thriving.webp?alt=media"
-  style={{ width: "120px", height: "auto" }}
+  style={{ width: "80px", height: "auto" }}
   alt="Leafy"
 />
