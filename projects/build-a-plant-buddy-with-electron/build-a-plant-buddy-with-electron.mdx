@@ -150,7 +150,7 @@ The `BrowserWindow` is how Electron creates a window on your desktop. Inside it 
 - `width` and `height` to set a fixed window size
 - `alwaysOnTop` so your plant buddy stays visible on your desktop
 
-The last line tells Electron to wait until the app is ready before creating the window and loading `index.html` into it.
+The last line tells Electron to wait until the app is ready before creating the window and loading **index.html** into it.
 
 Then add this line at the very top of your **main.js**:
 
@@ -414,7 +414,9 @@ body {
 }
 ```
 
-The `*` reset is a common trick to strip out the browser's built-in spacing so everything starts from a clean slate, and `html` and `body` are set to fill the full window size and hide the content that overflows it. The `.app` class adds the green border, the light background color, and sets Pixelify Sans as the font for the whole app.
+The `*` reset is a common trick to strip out the browser's built-in spacing so everything starts from a clean slate, and `html` and `body` are set to fill the full window size and hide the content that overflows it. 
+
+The `.app` class adds the green border, the light background color, and sets Pixelify Sans as the font for the whole app.
 
 ⚠️ **Note:** If your content looks a bit overflowed or misaligned right now, don't worry! We haven't styled the water meter bar yet, so things will look a bit off until we get there. Trust the process!
 
@@ -522,7 +524,11 @@ Now add the plant zone styles:
 }
 ```
 
-The `.plant-zone` uses a grid layout to stack the sprite and mood tag vertically inside a rounded green bordered box. The `image-rendering: pixelated` on `#plant` keeps the sprite looking crisp instead of blurry when scaled up, which is important for pixel art. The mood tag is styled as a small rounded pill that sits neatly below the plant.
+The `.plant-zone` uses a grid layout to stack the sprite and mood tag vertically inside a rounded green bordered box. 
+
+The `image-rendering: pixelated` on `#plant` keeps the sprite looking crisp instead of blurry when scaled up, which is important for pixel art. 
+
+The mood tag is styled as a small rounded pill that sits neatly below the plant.
 
 #### Care Reminder
 Next add the care reminder styles:
@@ -665,7 +671,11 @@ Finally, add the action buttons style:
 }
 ```
 
-The `.action-btn` class sets the shared layout for both buttons, stacking the name and timer text vertically. Each button then gets its own color scheme, the water button is styled in blue and the restart button in yellow, so they're easy to tell apart at a glance. The `.timer` text is slightly smaller than the `.name` to create a clear visual hierarchy between the two.
+The `.action-btn` class sets the shared layout for both buttons, stacking the name and timer text vertically. 
+
+Each button then gets its own color scheme, the water button is styled in blue and the restart button in yellow, so they're easy to tell apart at a glance. 
+
+The `.timer` text is slightly smaller than the `.name` to create a clear visual hierarchy between the two.
 
 Here’s how the app should look once we applied all the styles:
 
@@ -680,7 +690,9 @@ Now, let's bring our plant buddy to life with JavaScript! ✨
 ### JavaScript
 We've reached the last part of the tutorial! With JavaScript, we're going to make the app functional. We'll start with the title bar buttons, then move to the water meter mechanic that keeps your plant alive.
 
-First, close the app with <kbd>ctrl</kbd> + <kbd>C</kbd> (or <kbd>cmd</kbd> + <kbd>c</kbd> on Mac) in your terminal, same as we did in the CSS. Then open **main.js** and add `ipcMain` to your import:
+First, close the app with <kbd>ctrl</kbd> + <kbd>c</kbd> (or <kbd>cmd</kbd> + <kbd>c</kbd> on Mac) in your terminal, same as we did in the CSS. 
+
+Then open **main.js** and add `ipcMain` to your import:
 
 ```js
 const { app, BrowserWindow, ipcMain } = require('electron');
@@ -711,6 +723,7 @@ const closeBtn = document.getElementById("close-btn");
 minimizeBtn.addEventListener("click", () =>
   ipcRenderer.send("window:minimize"),
 );
+
 closeBtn.addEventListener("click", () => ipcRenderer.send("window:close"));
 ```
 
@@ -723,6 +736,7 @@ Let's start with the configuration and state variables. Add this below the title
 
 ```js
 // Water meter mechanic
+
 // -- Configuration --
 const drain_amount = 1; // % to drain per tick
 const drain_interval = 900; // 1% per 0.9s = fully drained in 90s
@@ -895,7 +909,7 @@ https://github.com/user-attachments/assets/c9fb2f30-22ed-49f9-bfdb-7d18d93fcb4a
 
 Congratulation! 🎉 You just built a fully functional Plant Buddy App with Electron!
 
-Along the way you learned how to set up an Electron project from scratch, build a custom window, render and style a desktop app with HTML & CSS, and bring it to life with JavaScript through a simple but satisfying game loop. You also got hands on experience with Electron's IPC system to connect your interface with the main process and a solid foundation for building any other desktop app you can think of next!
+Along the way you learned how to set up an Electron project, build a custom window, render and style a desktop app with HTML & CSS, and bring it to life with JavaScript through a simple but satisfying game loop. You also got hands on experience with Electron's IPC system to connect your interface with the main process and a solid foundation for building any other desktop app you can think of next!
 
 This is just the starting point though. If you'd like to take this further, you could package your Plant Buddy into a real installable app using a tool like [Electron Forge](https://www.electronforge.io/), so it runs as a standalone program instead of through `npm start`.
 
