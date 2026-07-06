@@ -50,9 +50,11 @@ Along the way, you’ll learn how to:
 - Embed images directly into SVGs using Base64
 - Create an API route that generates an SVG on demand
 - Deploy your widget, so it automatically updates on your GitHub profile
+
 Let’s get started! ᯓ★
 
  ## Prerequisites
+
 Here a few things you need before we get started on this project
 1. A code editor (like VS Code)
 2. Node.js (latest LTS  version installed with path variables)
@@ -64,7 +66,9 @@ Assets ⤷ ゛https://www.figma.com/community/file/1653482947097715199 ˎˊ˗
 And don’t forget to grab a snack! (๑ᵔ⤙ᵔ๑)
 
 ## Step 1: Setting up your environment
+
 First, let’s set up a space for this project! Open your terminal and run the following commands to create a new directory and initialize your Node.js environment
+
 ```bash
 mkdir github-readme-widget
 cd github-readme-widget
@@ -164,18 +168,22 @@ import { ASSETS } from "@/lib/assets";
 ```
 
 Then, create an export function called `getPetState(commits: number)` which expects a number representing how many contributions have been made. 
-Next, we use a simple `if` statement. If the commit streak is 0, we return the sleeping cat asset. Otherwise, we return our awake cat asset!
+
+Next, we use a simple `if` statement:
+
+- If the commit streak is 0, we return the sleeping cat asset. O
+- therwise, we return our awake cat asset!
 
 ```ts
 export function getPetState(commits: number) { //export makes this func available to other files
   if (commits === 0) {
     return {
-        asset: ASSETS.sleepingCat,
+      asset: ASSETS.sleepingCat,
     };
   }
 
   return {
-      asset: ASSETS.awakeCat,
+    asset: ASSETS.awakeCat,
   };
 }
 ```
