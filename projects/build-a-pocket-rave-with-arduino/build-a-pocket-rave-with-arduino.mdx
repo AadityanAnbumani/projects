@@ -16,32 +16,64 @@ tags:
   - intermediate
 ---
 
-For the June Codédex Tutorial Challenge, I decided to turn my current favorite song into a tiny physical object. I built a Pocket Rave using an Arduino, a tiny screen, and just four wires. The best part? We are plugging everything straight in—no messy breadboards required!
+## Introduction
 
-Here is exactly how I built it,
+Have you ever wanted to carry a tiny, personal concert in your pocket? 
 
-Prefer to watch the whole thing come together? Here's the full walkthrough:
+For this project, I decided to take my favorite song and turn it into a physical object. We are going to build a **Pocket Rave** using a microcontroller, a tiny OLED screen, and just four wires. 
 
-<video width="100%" controls>
-  <source src="https://github.com/user-attachments/assets/e2d97b5f-0b22-4e0e-852f-862f90daa4f4" type="video/mp4" />
-  Your browser does not support the video tag.
+The best part? There are no messy breadboards, absolutely no soldering required, and you don't even need to be a hardware expert to make it work. It is pure plug-and-play magic. By the end of this tutorial, you will have a working digital music visualizer complete with scrolling kinetic typography, a dancing stick figure, and floating particle effects! 
+
+<video width="100%" autoplay loop muted playsinline>
+  <source src="./assets/OledGiF.mp4" type="video/mp4" />
 </video>
 
-## The Toys We Are Playing With (The Hardware)
 
-To build our pocket-sized concert, we only need:
+Let'sss get on the floor n built it.
 
-- **The Brain (The Microcontroller):** For this project, I used an Arduino Uno R4 Minima. But what is a microcontroller? Think of it as a tiny, pocket-sized computer! Just like your big laptop has a brain to think, memory to remember things, and ports to plug in a mouse, a microcontroller has all of those exact same things—just shrunk down to the size of a cracker! It doesn’t know how to do anything until we give it a list of rules (our code). Once we give it instructions, it bosses the other parts around.
+## Getting Started 
+### 1. The Brain: What is an Arduino?
+For this project, I used an **Arduino Uno R4 Minima**.
 
-  **Pro-Tip: Swapping the Brain!** You don't have to use the Uno R4! Microcontrollers are like different breeds of dogs—they might look a little different, but they all love to play fetch. You can totally use an Arduino Nano, an ESP32 (which even has built-in Wi-Fi and Bluetooth!), or a Raspberry Pi Pico. As long as your new board has an I2C connection (more on that below!), you can throw the exact same pocket rave.
+![Arduino Uno R4 Minima](./assets/uno.jpeg)
 
-- **The Tiny TV (OLED Display):** This is a super small, super bright screen. "OLED" is just a fancy way of saying "a screen made of thousands of teeny-tiny lightbulbs that can turn on and off really fast."
+If you are completely new to electronics, you might be wondering: *What on earth is an Arduino?*
 
-  Our Tiny TV has a technical name: the SSD1306 128x64 OLED. 128x64 means the screen is a grid made of 128 tiny lights across and 64 lights down. To make the Arduino talk to this screen, they use a language called I2C (Inter-Integrated Circuit).
+Think of it as a tiny, pocket-sized computer. Just like your big laptop has a brain to think, memory to store things, and ports to plug in a mouse or keyboard, a microcontroller has all of those exact same things—just shrunk down to the size of a cracker!
 
-  Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate 10, 25!"), and the screen instantly follows the order. That's why we only need those two special wires: SDA (the data tube) and SCL (the clock that keeps the deliveries on schedule).
+However, it doesn’t have a built-in screen or a keyboard. It is completely blind and deaf until we plug things into it, and it doesn't know how to do anything until we give it a list of rules (our code). Once we type up our instructions and send them to the Arduino, it becomes the boss and tells all the connected lights, screens, and motors exactly what to do.
 
-- **The Messengers (4 Jumper Wires):** These are essentially just strings of metal that carry electricity and secret messages between the Brain and the Tiny TV.
+**Where to buy it:** You can grab the exact Arduino UNO R4 Minima I used directly from the [Official Arduino Store](https://store-usa.arduino.cc/products/uno-r4-minima) or on [Amazon](https://a.co/d/0b24YgYf).
+
+**Pro-Tip: Swapping the Brain!** You don't have to use the Uno R4! Microcontrollers are like different breeds of dogs—they might look a little different, but they all love to play fetch. You can totally use an Arduino Nano, an ESP32 (which even has built-in Wi-Fi and Bluetooth!), or a Raspberry Pi Pico. As long as your new board has an I2C connection (more on that below!), you can throw the exact same pocket rave.
+
+### 2. The Tiny TV: OLED Display
+This is a super small, super bright screen where our rave will actually happen. "OLED" is just a fancy hardware term that means "a screen made of thousands of teeny-tiny lightbulbs that can turn on and off really fast."
+
+![OLED Display](./assets/oledwsong.jpeg)
+
+Our Tiny TV has a technical name: the **SSD1306 128x64 OLED**. 128x64 means the screen is a grid made of 128 tiny lights across and 64 lights down. To make the Arduino talk to this screen, they use a language called I2C (Inter-Integrated Circuit).
+
+Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate 10, 25!"), and the screen instantly follows the order. That's why we only need those two special wires: SDA (the data tube) and SCL (the clock that keeps the deliveries on schedule).
+
+**Where to buy it:** [Amazon](https://a.co/d/00ZNDdmh).
+
+
+### 3. The Power Line: USB-C Cable
+To send our code from our laptop to the Arduino (and to give the Arduino power), we need a USB cable usually provided with the Arduino. The Arduino Uno R4 Minima uses a standard USB-C connection, so a regular phone charging/data cable works perfectly!
+
+### 4. The Messengers: Jumper Wires
+Finally, we need 4 Female-to-Male jumper wires. These are essentially just strings of metal encased in colored plastic. They carry electricity and secret messages back and forth between the Brain and the Tiny TV.
+
+**Where to buy it:** [Amazon](https://a.co/d/042vadtF).
+
+## The Software Setup
+
+Before we plug our physical wires in, we need a place to write our instructions for the Brain. 
+
+1. Download and install the free [Arduino IDE](https://www.arduino.cc/en/software) (Integrated Development Environment). Think of this as a fancy text editor, like Microsoft Word, but specifically designed for writing hardware code in C++.
+2. Open the IDE, look at the left-hand sidebar, and click on the **Library Manager** (it looks like a stack of books).
+3. We don't want to teach the Arduino how to draw a circle from scratch—that involves way too much math! Instead, search for and install two libraries: **Adafruit GFX Library** and **Adafruit SSD1306**. These libraries contain pre-written code that makes talking to our OLED screen super easy.
 
 ## Connecting the Dots (The Wiring)
 
@@ -110,6 +142,14 @@ int guyY = 25 + (danceBeat == 1 ? -4 : 0);
 I love choreographing dances, so I had to make my stick figure bounce to the exact rhythm of the song. The song is 130 Beats Per Minute (BPM). Doing a little bit of math, that means every 230 milliseconds, a fast, club-style eighth-note beat hits!
 
 Every time the stopwatch hits that 230ms mark, we tell the stick figure to throw his arms up and bounce his Y-coordinate up by 4 pixels.
+
+
+Prefer to watch the whole thing come together? Here's the full walkthrough:
+
+<video width="100%" controls>
+  <source src="https://github.com/user-attachments/assets/e2d97b5f-0b22-4e0e-852f-862f90daa4f4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
 
 ## Try It Yourself!
 
