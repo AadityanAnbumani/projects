@@ -79,10 +79,16 @@ Before we plug our physical wires in, we need a place to write our instructions 
 
 How do we get the Brain to talk to the TV? We connect them with our 4 messenger wires! Here is the super easy secret to remembering how to wire this up forever:
 
+<video width="100%" autoplay loop muted playsinline>
+  <source src="./assets/WkConnection (1).mp4" type="video/mp4" />
+</video>
+
 - **VCC goes to 3.3V:** VCC is the "food." The TV needs energy to light up, so we plug it into the 3.3-volt power pin on the Arduino.
 - **GND goes to GND:** This is the "Ground." It gives the electricity a safe place to go after it powers the TV. Think of it like a pair of shoes keeping everything grounded.
 - **SDA goes to A4 (The Data Wire):** SDA carries the actual pictures and words to the screen.
 - **SCL goes to A5 (The Clock Wire):** SCL keeps the rhythm and timing so the screen doesn't get confused.
+
+***Just count the letters: SDA handles your DATA (4 letters = Pin A4), while SCL ticks the CLOCK ( 5 letters = Pin A5)***
 
 <ImageZoom
   src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fbuild-a-pocket-rave-with-arduino%2Fconnection-guide.webp?alt=media"
