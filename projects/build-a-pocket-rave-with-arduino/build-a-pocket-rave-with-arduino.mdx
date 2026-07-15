@@ -20,22 +20,22 @@ tags:
 
 Have you ever wanted to carry a tiny, personal concert in your pocket? 
 
-For this project, I decided to take my favorite song and turn it into a physical object. We are going to build a **Pocket Rave** using a microcontroller, a tiny OLED screen, and just four wires. 
+For this project, I decided to take my favorite song and turn it into a physical object. We are going to build a **Pocket Rave** using a microcontroller, a tiny OLED screen, and just four wires. By the end of this tutorial, you will have a working digital music visualizer complete with scrolling kinetic typography, a dancing stick figure, and floating particle effects! 
 
-The best part? There are no messy breadboards, absolutely no soldering required, and you don't even need to be a hardware expert to make it work. It is pure plug-and-play magic. By the end of this tutorial, you will have a working digital music visualizer complete with scrolling kinetic typography, a dancing stick figure, and floating particle effects! 
+The best part? There are no messy breadboards, absolutely no soldering required, and you don't even need to be a hardware expert to make it work. It is pure plug-and-play magic. 
 
 <video width="100%" autoPlay loop muted playsInline>
-  <source src="./assets/OledGiF.mp4" type="video/mp4" />
+  <source src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/OledGiF.gif" type="video/mp4" />
 </video>
 
 
-Let's get on the floor n built it.
+Let's get on the floor n build it.
 
 ## Getting Started 
 ### 1. The Brain: What is an Arduino?
 For this project, I used an **Arduino Uno R4 Minima**.
 
-![Arduino Uno R4 Minima](./assets/uno.jpeg)
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/uno.jpeg" />
 
 If you are completely new to electronics, you might be wondering: *What on earth is an Arduino?*
 
@@ -50,7 +50,7 @@ However, it doesn’t have a built-in screen or a keyboard. It is completely bli
 ### 2. The Tiny TV: OLED Display
 This is a super small, super bright screen where our rave will actually happen. "OLED" is just a fancy hardware term that means "a screen made of thousands of teeny-tiny lightbulbs that can turn on and off really fast."
 
-![OLED Display](./assets/oledwsong.jpeg)
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/oledwsong.jpeg" />
 
 Our Tiny TV has a technical name: the **SSD1306 128x64 OLED**. 128x64 means the screen is a grid made of 128 tiny lights across and 64 lights down. To make the Arduino talk to this screen, they use a language called I2C (Inter-Integrated Circuit).
 
@@ -80,7 +80,7 @@ Before we plug our physical wires in, we need a place to write our instructions 
 How do we get the Brain to talk to the TV? We connect them with our 4 messenger wires! Here is the super easy secret to remembering how to wire this up forever:
 
 <video width="100%" autoPlay loop muted playsInline>
-  <source src="./assets/wkConnection (1).mp4" type="video/mp4" />
+  <source src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/wkConnection (1).mp4" type="video/mp4" />
 </video>
 
 - **VCC goes to 3.3V:** VCC is the "food." The TV needs energy to light up, so we plug it into the 3.3-volt power pin on the Arduino.
