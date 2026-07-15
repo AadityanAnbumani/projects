@@ -17,19 +17,19 @@ tags:
   - game-development
 ---
 
-# Introduction
+## Introduction
 
 Have you ever wondered how left-clicking on a Minecraft chest opens it?
 
-{/* minecraftChestGif.gif */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/minecraftChestGif.gif" />
 
 Or how, when someone dies next to you, your inventory fills up with their items.
 
-{/* minecraftPickupGif.gif */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/minecraftPickupGif.gif" />
 
 Well, wonder no more because I’ll be showing you how those interactions work in this project tutorial! By the end of this tutorial, you’ll have built your very own minigame showcasing interactions in Godot!
 
-{/* interactGif.gif */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/interactGif.gif" />
 
 As I was working on my game, “[Before I Fade](https://vishyyyyyyyyy.itch.io/before-i-fade),” for the Codedex 2025 Game Jam, I was really taken aback by how intuitive yet versatile this “interact” feature was (I’m putting it in quotes as that is just one use for it). This game is a murder mystery where you play as the victim’s ghost and find clues to uncover the truth behind your death. We’ve used this interact feature throughout the game, and I have a feeling you’ll be able to spot most of the spots we’ve used it after reading this tutorial.
 
@@ -39,62 +39,62 @@ Before I jump into building the interact feature, I’ll walk through how I set 
 
 First, go ahead and download [this folder](https://drive.google.com/drive/folders/1PFkQHH8nX4CnLZWXYhQ5pWgJmV__gRTQ), as it contains all the assets that I will be using in this tutorial. Next, download Godot from [this website](https://godotengine.org/) if you don't already have it installed, and make sure the version is at least 4.6. Now open Godot, and click create in the top left corner:
 
-{/* creatProjectInGodot.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/createProjectInGodot.png" />
 
 A popup menu will appear, make sure you select compatibility in the renderer option, and then click on create:
 
-{/* compatabilitySettingGodot.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/CompatabilitySettingGodot.png" />
 
 Voilà, your project is now ready, on the top middle of your screen click on 2D, you should be greeted by a screen that looks like this:
 
-{/* Godot2DprojectScreen.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/Godot2DprojectScreen.png" />
 
 Now right click on the resources folder in the bottom left of your screen and then click on create new folder:
 
-{/* folderCreationGodot.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/folderCreationGodot.png" />
+
 
 Name this folder “assets”, and copy over all the files from the drive folder you downloaded earlier into this new assets folder.
 
 Now, in the left panel, click on the "+" icon:
 
-{/* addNode.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/addNode.png" />
 
 Now add a node component and name it whatever you like (you can do this by double-clicking on the node component that appears once you have added it); I’ve named mine “attic”.
 
-{/* addNode2.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/addNode2.png" />
 
 Create a new folder inside the resources folder and name it “scenes”. Now press ```ctrl + s``` on your keyboard to bring up the save menu and click on the scenes folder, then save to save your new scene to the scenes folder.
 
-{/* saveScene.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/saveScene.png" />
 
 Now we have all the ground work setup, your file manager in the bottom left should be looking something like this:
 
-{/* fileSystemGodot.png */}
-
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/fileSystemGodot.png" />
 Now drag and drop the Background.png file into the editor screen:
 
-{/* backgroundImageAddition.mp4 */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/backgroundImageAddition.mp4" />
 
 We can do the same thing with the rest of the assets, you can even drag in the same asset multiple times, and it’ll be numbered accordingly. Here’s mine; try to get yours somewhat similar, as it will make it easier to follow along:
 
-{/* sceneSetup.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/sceneSetup.png" />
 
 Make sure to also drag in the asset called “E”, next to each of the objects you have placed, this is going to be important for our interact feature. Make sure to drag the Es under the object you are placing them next to in the left panel, Here’s how I have it setup:
 
-{/* ESetup.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/ESetup.png" />
 
 Now, we also need to add labels for the text that will appear when we interact with an object. Click on an object in the left panel, then ```ctrl + a```, search for “label” and add it. Now click on your new label node, and in its right panel you should see a box to type text. Add whatever text you want to see when you interact with that object, and move the text on top of the black bar.
 It should look something like this:
 
-{/* labelText.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/labelText.png" />
 
 You can also edit font size, color, and more by scrolling down in the right panel, clicking on Theme Overrides → colors  →  font size.
 
-{/* fontEdit.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/fontEdit.png" />
 
 Make sure to add a label for the other objects, so you can have different text for each one! With that done, we have one last step in this section. In the left panel, next to each item, you should see a symbol that looks like an eye, click on it for every E object and label. This will turn off their visibility.
 
-{/* EAndLabelVisibility.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/EAndLabelVisibility.png" />
 
 With that setup, you can watch [this video](https://www.youtube.com/watch?v=3M3olvGE-EI) to set up a simple character in Godot, you can use the boyGhostSingle.png file for the texture. Make sure to save your character into the scenes folder. 
 
@@ -111,15 +111,15 @@ With that being said, let’s use these ingredients to make our game come alive!
 
 In your game, add a `StaticBody2D` node to all the items that require a barrier collision. You can do this by clicking on the item in the left panel you want to add it to, then pressing ```ctrl + a``` , and choosing a `StaticBody2D` node. After that, attach a `CollisionShape2D` node to the `StaticBody2D`. It should look something like this:
 
-{/* staticBodySetup.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/staticBodySetup.png" />
 
 Once you have this structure, go to the inspector on the right side of the screen and select an appropriate shape in the dropdown. For this tutorial, we’ll be using a RectangleShape2D.
 
-{/* rectangleShape.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/rectangleShape.png" />
 
 From here, drag the shape and place it onto your object, change its shape and size, and repeat this process for all the objects you need collisions for. Here is what the game looks like after adding all the collisions:
 
-{/* collisionPlacement.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/collisionPlaacement.png" />
 
 Getting the placement of the collision shapes to feel just right is a very trial and error heavy process, so take your time and experiment with the placement and sizing of the collision shapes.
 
@@ -130,17 +130,16 @@ Now, let's move on to the fun part, adding the ability to interact with objects 
 
 To start, add an `Area2D` node to each of the objects that require an interaction. (these are the same objects we added `StaticBody2D`s to. )
 
-{/* area2dSetup.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/area2dSetup.png" />
 
 Once you have that, add a collision shape to each `Area2D` node. Make sure these collision shapes are larger than the static body collision shapes because you will need your character to enter the area surrounding the object to make the interaction happen.
 
 A helpful hint: To help you differentiate which collision shape belongs to StaticBody2D or `Area2D` is to click on your collision shape in the left panel, then change the debug color of it in the right panel to help differentiate between the group of collision shapes.
 
-{/* debugColor.png */}
-
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/debugColor.png" />
 For example, as you can see, the collision shapes in orange are much larger than the ones for the blue collision shapes for `StaticBody2D`:
 
-{/* area2dExample.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/area2dExample.png" />
 
 ## Input setup
 Before we get into the code, here’s a brief guide on how to set up a new input in Godot, so we can gain the ability to interact with objects by pressing “E” on our keyboard.
@@ -153,7 +152,7 @@ Now, let’s create some user input actions. Click on the project tab in the top
 
 It should look like this once you have followed all the steps:
 
-{/* keySetup.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/keySetup.png" />
 
 Now we have our input set up to be the letter “E” key press on the keyboard!
 
@@ -162,18 +161,17 @@ Now that everything is set up, we can move on to the brain of the interaction: C
 
 Click on one of the objects we have set up in the left panel, for example, bloodBlanket, and attach an empty script to its `Area2D`. You can do this by clicking the button I have shown in the image below.
 
-{/* attachScript.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/attachScript.png" />
 
 Now, a pop-up menu will appear, and in it, click create.
 
-{/* createScript.png */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/createScript.png" />
 
 Once that is done, let’s add some starting code to the script.
 
 ```python
-    extends Area2D //Allows the use of Area2D-specific features
-
-    var player_inside := false
+extends Area2D //Allows the use of Area2D-specific features
+var player_inside := false
 ```
 
 Here we created a boolean variable to flag if our player is inside an `Area2D`.
@@ -181,14 +179,14 @@ Here we created a boolean variable to flag if our player is inside an `Area2D`.
 Next let’s add 2 functions to our script:
 
 ```python
-    func _ready(): //runs ONCE at the start of a scene
-      body_entered.connect(_on_body_entered)
-      body_exited.connect(_on_body_exited)
+func _ready(): //runs ONCE at the start of a scene
+  body_entered.connect(_on_body_entered)
+  body_exited.connect(_on_body_exited)
 
-    func _on_body_entered(body):
-      if body.name == "blobGhostPlayer":
-        player_inside = true
-        $"../E".visible = true
+func _on_body_entered(body):
+  if body.name == "blobGhostPlayer":
+  player_inside = true
+  $"../E".visible = true
 ```
 
 The ```_on_body_entered``` function receives a signal when a body enters that `Area2D` node’s collision shape and triggers the code inside the function. 
@@ -199,15 +197,15 @@ Right now, that function will trigger for any body entering it, not just the pla
 
 This is then used in``` _on_body_entered(body)``` to check if the player entered the `Area2D`. If this condition is met, the variable ```player_inside``` is set to true, and the “E” image becomes visible!
 
-{/* interactDemo */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/interactDemo.png" />
 
 Isn’t that cool? With just a few lines of code, you can set up an interaction when a player touches an object! Now, don’t forget about what happens when you leave the `Area2D`. That’s what this next bit of code handles:
 
 ```python
-    func _on_body_exited(body):
-      if body.name == "blobGhostPlayer":
-        player_inside = false
-        $"../E".visible = false
+func _on_body_exited(body):
+  if body.name == "blobGhostPlayer":
+  player_inside = false
+  $"../E".visible = false
 ```
 
 This function is very similar to the ```_on_body_entered()``` from earlier, except now it's checking if the player exited the `Area2D`. If it does, then the ```player_inside``` variable gets set to false, and the E image hides.
@@ -215,13 +213,13 @@ This function is very similar to the ```_on_body_entered()``` from earlier, exce
 Moving onto the final bit of code. This is where things get interesting. Instead of triggering an event solely by detecting if the character walked into an `Area2D`, we add another level of interaction requiring the character to press a key while standing in the area.
 
 ```
-    func _process(delta: float) -> void:  //_process() runs every frame
-      if player_inside and Input.is_action_pressed("interact"):
-        print("interact pressed on area")
-        $"../Label".visible=true
-        $"../../Box2/Label".visible=false
-        $"../../Box7/Label".visible=false
-        $"../../Bloodblanket/Label".visible=false
+  func _process(delta: float) -> void:  //_process() runs every frame
+  if player_inside and Input.is_action_pressed("interact"):
+  print("interact pressed on area")
+  $"../Label".visible=true
+  $"../../Box2/Label".visible=false
+  $"../../Box7/Label".visible=false
+  $"../../Bloodblanket/Label".visible=false
 ```
 
 Now we are checking for two new conditions:
@@ -230,7 +228,7 @@ Now we are checking for two new conditions:
 
 Now, when I walk into an object's `Area2D` and press E, I see a description about that object in the game!
 
-{/* interactGif.gif */}
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/interactGif.gif" />
 
 # Conclusion
 Congratulations on building your own interactive feature! I know it wasn’t easy, but you made it!
