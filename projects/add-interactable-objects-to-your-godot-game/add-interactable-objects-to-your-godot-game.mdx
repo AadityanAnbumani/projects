@@ -33,7 +33,7 @@ Well, wonder no more because I’ll be showing you how those interactions work i
 
 As I was working on my game, “[Before I Fade](https://vishyyyyyyyyy.itch.io/before-i-fade),” for the Codedex 2025 Game Jam, I was really taken aback by how intuitive yet versatile this “interact” feature was (I’m putting it in quotes as that is just one use for it). This game is a murder mystery where you play as the victim’s ghost and find clues to uncover the truth behind your death. We’ve used this interact feature throughout the game, and I have a feeling you’ll be able to spot most of the spots we’ve used it after reading this tutorial.
 
-# Project setup
+## Project setup
 
 Before I jump into building the interact feature, I’ll walk through how I set up the project. Feel free to skip this section if you already have a project set up or would like to customize and make your own project.
 
@@ -73,7 +73,10 @@ Now we have all the ground work setup, your file manager in the bottom left shou
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/fileSystemGodot.png" />
 Now drag and drop the Background.png file into the editor screen:
 
-<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/backgroundImageAddition.mp4" />
+<video width="100%" controls>
+  <source src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/backgroundImageAddition.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
 
 We can do the same thing with the rest of the assets, you can even drag in the same asset multiple times, and it’ll be numbered accordingly. Here’s mine; try to get yours somewhat similar, as it will make it easier to follow along:
 
@@ -100,7 +103,7 @@ With that setup, you can watch [this video](https://www.youtube.com/watch?v=3M3o
 
 Drag your character in like you have been doing for everything else, and bam, we’re done setting up the project. Now let’s move on to adding our interactive feature!
 
-# Collision shapes
+## Collision shapes
 Let’s discuss how to handle collisions using collision shapes in Godot. But first, what is a collision shape and what is it used for?
 
 - `StaticBody2D` - An element you can use to create barriers, walls that characters can’t walk through
@@ -125,7 +128,7 @@ Getting the placement of the collision shapes to feel just right is a very trial
 
 Now, if you try playing your game, you won’t be able to walk into these objects anymore and will have to navigate around them!
 
-# Adding interactivity
+## Adding interactivity
 Now, let's move on to the fun part, adding the ability to interact with objects in your game! 
 
 To start, add an `Area2D` node to each of the objects that require an interaction. (these are the same objects we added `StaticBody2D`s to. )
@@ -156,7 +159,7 @@ It should look like this once you have followed all the steps:
 
 Now we have our input set up to be the letter “E” key press on the keyboard!
 
-# Code
+## Code
 Now that everything is set up, we can move on to the brain of the interaction: Code!
 
 Click on one of the objects we have set up in the left panel, for example, bloodBlanket, and attach an empty script to its `Area2D`. You can do this by clicking the button I have shown in the image below.
@@ -230,7 +233,7 @@ Now, when I walk into an object's `Area2D` and press E, I see a description abou
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/interactGif.gif" />
 
-# Conclusion
+## Conclusion
 Congratulations on building your own interactive feature! I know it wasn’t easy, but you made it!
 
 To summarize, we used different collision types: `StaticBody2D` to create physical barriers and `Area2D` for receiving and emitting signals, and looked at how these signals could be used to create different interactions in our game!
