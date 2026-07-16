@@ -78,12 +78,12 @@ Let's break down that long name:
 - 128x64 means the screen is made up of a grid of tiny lights. 128 across and 64 down. Total of 8,192.
 - I2C (Inter-Integrated Circuit) is the communication method the Arduino uses to talk to the display.
 
-Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate (10, 25)"), and the screen instantly follows the order almost instantly. That's why we only need those two special wires: 
+Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate (10, 25)"), and the screen follows the order almost instantly. That's why we only need those two special wires: 
 
 - SDA (the data tube) 
 - SCL (the clock that keeps the deliveries on schedule)
 
-The good news? You don't need to understand this works! We'll use a library that handles all of it.
+The good news? You don't need to understand how this works! We'll use a library that handles all of it.
 
 **Where to buy it:** [Amazon](https://a.co/d/00ZNDdmh).
 
@@ -132,7 +132,7 @@ Here is the super easy secret to remembering how to wire this up forever:
 - **SDA goes to A4 (The Data Wire):** SDA carries the actual pictures and words to the screen.
 - **SCL goes to A5 (The Clock Wire):** SCL keeps the rhythm and timing so the screen doesn't get confused.
 
-***Just count the letters: SDA handles your DATA (4 letters = Pin A4), while SCL ticks the CLOCK ( 5 letters = Pin A5)***
+***Just count the letters: SDA handles your DATA (4 letters = Pin A4), while SCL ticks the CLOCK (5 letters = Pin A5)***
 
 <ImageZoom
   src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fbuild-a-pocket-rave-with-arduino%2Fconnection-guide.webp?alt=media"
@@ -159,7 +159,7 @@ At the very top of our code, we write things like:
 
 Think of these like giving the Arduino a dictionary. Instead of teaching the Arduino what a "screen" is from scratch, we just hand it a book that says, "Here is how you talk to the tiny TV."
 
-The two `#define` lines is giving constant values some simple nicknames. Instead of typing the number 128 a bunch of times, we just tell the computer: "Whenever I say `SCREEN_WIDTH`, I mean 128."
+The two `#define` lines give constant values simple nicknames. Instead of typing the number 128 a bunch of times, we just tell the computer: "Whenever I say `SCREEN_WIDTH`, I mean 128."
 
 These definitions specify the dimensions of a display (often an OLED screen):
 
@@ -224,7 +224,7 @@ The OLED screens map their Y-axis upside down so 64 is the floor and we subtract
 
 When people see the little guy dancing on the screen, they usually think it's a tiny video or a GIF. Nope! We are literally drawing him from scratch, 60 times a second, using a digital Etch-A-Sketch. 🕺
 
-Snippets on how you can construct your own cutee Stick Man, Woman or even tun tun tun tun tun sahur ;-)
+Snippets on how you can construct your own cute Stick Man, Woman or even tun tun tun tun tun sahur ;-)
 
 ```cpp
 display.drawCircle();
