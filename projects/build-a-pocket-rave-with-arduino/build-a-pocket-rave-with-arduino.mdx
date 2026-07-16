@@ -146,7 +146,7 @@ The `#define` lines are just us giving the computer some simple nicknames. Inste
 
 ### 2. Drawing with 1s and 0s
 
-If you squint your eyes and look at the 1s in that block of code, you can actually see the shape of a heart! A 1 tells the screen to turn a tiny lightbulb on, and a 0 tells it to leave it dark. We save this picture under the name `heart_bmp` so we can stamp it on the screen later ♡
+If you squint your eyes and look at the 1s in that block of code, you can actually see the shape of a heart! A 1 tells the screen to turn a tiny lightbulb on, and a 0 tells it to leave it dark. We save this picture under the name `heart_bmp[]` so we can stamp it on the screen later. ♡
 
 ```cpp
 const unsigned char heart_bmp[] PROGMEM = {
@@ -211,10 +211,14 @@ We use an `if` / `else if` statement like a movie script. The Arduino checks our
 ```cpp
 if (phase == 0) {
   display.setCursor(0, 8);
-  display.println("If you"); display.println("go hard"); display.println("you gotta");
+  display.println("If you"); 
+  display.println("go hard"); 
+  display.println("you gotta");
 } else if (phase == 1) {
   display.setCursor(0, 8);
-  display.println("get on"); display.println("the"); display.println("floor");
+  display.println("get on"); 
+  display.println("the"); 
+  display.println("floor");
 }
 ```
 
