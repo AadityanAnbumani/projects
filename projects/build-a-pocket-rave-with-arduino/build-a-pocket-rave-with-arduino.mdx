@@ -94,10 +94,10 @@ Finally, we need 4 Female-to-Male jumper wires. These are essentially just strin
 Before we plug our physical wires in, we need a place to write our instructions for the Brain. 
 
 1. Download and install the free [Arduino IDE](https://www.arduino.cc/en/software) (Integrated Development Environment). Think of it as a fancy code editor, like VS Code or Builds, but specifically designed for writing hardware code in C++.
-2. Open the IDE, look at the left-hand sidebar, and click on the **Library Manager** (it looks like a stack of books).
+2. Open the IDE, look at the left sidebar, and click on the **Library Manager** (it looks like a stack of books).
 3. We don't want to teach the Arduino how to draw a circle from scratch – that involves way too much math! Instead, search for and install two libraries: 
-  - **Adafruit GFX Library**
-  - **Adafruit SSD1306**
+    - **Adafruit GFX Library**
+    - **Adafruit SSD1306**
 
 These libraries contain pre-written code that makes talking to our OLED screen super easy.
 
@@ -146,7 +146,9 @@ The `#define` lines are just us giving the computer some simple nicknames. Inste
 
 ### 2. Drawing with 1s and 0s
 
-If you squint your eyes and look at the 1s in that block of code, you can actually see the shape of a heart! A 1 tells the screen to turn a tiny lightbulb on, and a 0 tells it to leave it dark. We save this picture under the name `heart_bmp[]` so we can stamp it on the screen later. ♡
+If you squint your eyes and look at the `1`s in the code block below, you can actually see the shape of a heart! ♡
+
+We save this picture under the name `heart_bmp[]` so we can stamp it on the screen later:
 
 ```cpp
 const unsigned char heart_bmp[] PROGMEM = {
@@ -158,7 +160,12 @@ const unsigned char heart_bmp[] PROGMEM = {
 };
 ```
 
-Computers only understand two numbers: 0 (off) and 1 (on). To draw the little floating hearts on our screen, we literally draw a picture using 1s and 0s! A 1 tells the screen to turn a tiny lightbulb on, and a 0 tells it to leave it dark.
+Computers only understand two numbers: 1 (on) and 0 (off). 
+
+To draw the little floating hearts on our screen, we literally draw a picture using 1s and 0s: 
+
+- `1` tells the screen to turn a tiny lightbulb on.
+- `0` tells the screen to leave it dark.
 
 ### 3. The Ultimate Secret: millis() vs delay()
 
