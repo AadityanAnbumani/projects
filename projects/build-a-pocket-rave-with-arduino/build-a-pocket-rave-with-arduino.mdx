@@ -214,9 +214,9 @@ int heart1_Y = 64 - ((timeNow / 40) % 70);
 display.drawBitmap(120, heart1_Y, heart_bmp, 5, 5, SSD1306_WHITE);
 ```
 
+The OLED screens map their Y-axis upside down so 64 is the floor and we subtract it with the slowed-down timer `/ 40` to make the hearts float upwards. The `% 70` acts as the teleporter and it instantly snaps the heart back to the floor once it reaches the top so the party never ends.
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/hearts.gif" style={{ width: "30%", height: "auto" }} />
-
 
 ### 5. Choreographing the Dance
 
