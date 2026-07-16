@@ -138,13 +138,28 @@ At the very top of our code, we write things like:
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 ```
 
 Think of these like giving the Arduino a dictionary. Instead of teaching the Arduino what a "screen" is from scratch, we just hand it a book that says, "Here is how you talk to the tiny TV."
 
-The `#define` lines are just us giving the computer some simple nicknames. Instead of typing the number "128" a hundred times, we just tell the computer: "Whenever I say SCREEN_WIDTH, I mean 128."
+The two `#define` lines is giving constant values used throughout the program some simple nicknames. Instead of typing the number 128 a bunch of times, we just tell the computer: "Whenever I say `SCREEN_WIDTH`, I mean 128."
+
+These definitions specify the dimensions of a display (often an OLED screen):
+
+- `SCREEN_WIDTH`: the display is 128 pixels wide
+- `SCREEN_HEIGHT`: the display is 64 pixels tall
+
+```output
+           128 pixels
++----------------------------+
+|                            |
+|                            |  64 pixels
+|                            |
++----------------------------+
+```
 
 ### 2. Drawing with 1s and 0s
 
