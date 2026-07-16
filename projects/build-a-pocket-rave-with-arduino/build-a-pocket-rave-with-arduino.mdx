@@ -47,7 +47,7 @@ However, it doesn’t have a built-in screen or a keyboard. It is completely bli
 - [Official Arduino Store](https://store-usa.arduino.cc/products/uno-r4-minima)
 - [Amazon](https://a.co/d/0b24YgYf)
 
-**Pro-Tip: Swapping the Brain!** You don't have to use the Uno R4! Microcontrollers are like different breeds of dogs – they might look a little different, but they all love to play fetch. You can totally use an Arduino Nano, an ESP32 (which even has built-in Wi-Fi and Bluetooth!), or a Raspberry Pi Pico. As long as your new board has an I2C connection (more on that below!), you can throw the exact same pocket rave.
+**Pro Tip: Swapping the Brain!** You don't have to use the Uno R4! Microcontrollers are like different breeds of dogs – they might look a little different, but they all love to play fetch. You can totally use an Arduino Nano, an ESP32 (which even has built-in Wi-Fi and Bluetooth!), or a Raspberry Pi Pico. As long as your new board has an I2C connection (more on that below!), you can throw the exact same pocket rave.
 
 ### 2. The Tiny TV: OLED Display
 
@@ -65,24 +65,32 @@ Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions
 
 
 ### 3. The Power Line: USB-C Cable
+
 To send our code from our laptop to the Arduino (and to give the Arduino power), we need a USB cable usually provided with the Arduino. The Arduino Uno R4 Minima uses a standard USB-C connection, so a regular phone charging/data cable works perfectly!
 
 ### 4. The Messengers: Jumper Wires
+
 Finally, we need 4 Female-to-Male jumper wires. These are essentially just strings of metal encased in colored plastic. They carry electricity and secret messages back and forth between the Brain and the Tiny TV.
 
 **Where to buy it:** [Amazon](https://a.co/d/042vadtF).
 
-## The Software Setup
+## Software Setup
 
 Before we plug our physical wires in, we need a place to write our instructions for the Brain. 
 
-1. Download and install the free [Arduino IDE](https://www.arduino.cc/en/software) (Integrated Development Environment). Think of this as a fancy text editor, like Microsoft Word, but specifically designed for writing hardware code in C++.
+1. Download and install the free [Arduino IDE](https://www.arduino.cc/en/software) (Integrated Development Environment). Think of this as a fancy code editor, like VS Code or Codédex Builds, but specifically designed for writing hardware code in C++.
 2. Open the IDE, look at the left-hand sidebar, and click on the **Library Manager** (it looks like a stack of books).
-3. We don't want to teach the Arduino how to draw a circle from scratch – that involves way too much math! Instead, search for and install two libraries: **Adafruit GFX Library** and **Adafruit SSD1306**. These libraries contain pre-written code that makes talking to our OLED screen super easy.
+3. We don't want to teach the Arduino how to draw a circle from scratch – that involves way too much math! Instead, search for and install two libraries: 
+  - **Adafruit GFX Library**
+  - **Adafruit SSD1306**
+
+These libraries contain pre-written code that makes talking to our OLED screen super easy.
 
 ## Connecting the Dots (The Wiring)
 
-How do we get the Brain to talk to the TV? We connect them with our 4 messenger wires! Here is the super easy secret to remembering how to wire this up forever:
+How do we get the Brain to talk to the TV? We connect them with our 4 messenger wires! 
+
+Here is the super easy secret to remembering how to wire this up forever:
 
 <video width="100%" autoPlay loop muted playsInline>
   <source src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/wkConnection (1).mp4" type="video/mp4" />
