@@ -64,17 +64,26 @@ However, it doesn’t have a built-in screen or a keyboard. It is completely bli
 
 ### 2. The Tiny TV: OLED Display 📺
 
-This is a super small, super bright screen where our rave will actually happen. 
+This Tiny TV is a super small screen where our rave will actually happen. Even though it's tiny, it's bright enough to display crisp animations, text, and graphics.
 
-**OLED** is just a fancy hardware term that means "a screen made of thousands of teeny-tiny lightbulbs that can turn on/off almost instantly." This display technology is used in TVs, computers, smartphones, etc.
+**OLED** stands for **O**rganic **L**ight-**E**mitting **D**iode. That's just a fancy name that means "a screen made of thousands of teeny-tiny lightbulbs that can turn on/off individually." This display technology is found in TVs, computers, smartphones, etc.
 
-Our Tiny TV has a technical name: the **SSD1306 128x64 OLED**. 
+Our display has a technical name: the **SSD1306 128x64 OLED (I2C)**. 
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/oledwsong.jpeg" />
 
-The "128x64" means the screen is made up of a grid of tiny light. 128 across and 64 down. To make the Arduino talk to this screen, they use a language called I2C (Inter-Integrated Circuit).
+Let's break down that long name:
 
-Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate 10, 25!"), and the screen instantly follows the order. That's why we only need those two special wires: SDA (the data tube) and SCL (the clock that keeps the deliveries on schedule).
+- SSD1306 is the display's model number.
+- 128x64 means the screen is made up of a grid of tiny lights. 128 across and 64 down. Total of 8,192 pixels.
+- I2C (Inter-Integrated Circuit) is the communication method the Arduino uses to talk to the display.
+
+Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate (10, 25)"), and the screen instantly follows the order almost instantly. That's why we only need those two special wires: 
+
+- SDA (the data tube) 
+- SCL (the clock that keeps the deliveries on schedule)
+
+The good news? You don't need to understand how I2C works! We'll use a library that handles all of the communication for us.
 
 **Where to buy it:** [Amazon](https://a.co/d/00ZNDdmh).
 
