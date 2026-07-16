@@ -48,7 +48,7 @@ However, it doesn’t have a built-in screen or a keyboard. It is completely bli
 - [Official Arduino Store](https://store-usa.arduino.cc/products/uno-r4-minima)
 - [Amazon](https://a.co/d/0b24YgYf)
 
-**Pro-Tip: Swapping the Brain!** You don't have to use the Uno R4! Microcontrollers are like different breeds of dogs—they might look a little different, but they all love to play fetch. You can totally use an Arduino Nano, an ESP32 (which even has built-in Wi-Fi and Bluetooth!), or a Raspberry Pi Pico. As long as your new board has an I2C connection (more on that below!), you can throw the exact same pocket rave.
+**Pro-Tip: Swapping the Brain!** You don't have to use the Uno R4! Microcontrollers are like different breeds of dogs – they might look a little different, but they all love to play fetch. You can totally use an Arduino Nano, an ESP32 (which even has built-in Wi-Fi and Bluetooth!), or a Raspberry Pi Pico. As long as your new board has an I2C connection (more on that below!), you can throw the exact same pocket rave.
 
 ### 2. The Tiny TV: OLED Display
 
@@ -79,7 +79,7 @@ Before we plug our physical wires in, we need a place to write our instructions 
 
 1. Download and install the free [Arduino IDE](https://www.arduino.cc/en/software) (Integrated Development Environment). Think of this as a fancy text editor, like Microsoft Word, but specifically designed for writing hardware code in C++.
 2. Open the IDE, look at the left-hand sidebar, and click on the **Library Manager** (it looks like a stack of books).
-3. We don't want to teach the Arduino how to draw a circle from scratch—that involves way too much math! Instead, search for and install two libraries: **Adafruit GFX Library** and **Adafruit SSD1306**. These libraries contain pre-written code that makes talking to our OLED screen super easy.
+3. We don't want to teach the Arduino how to draw a circle from scratch – that involves way too much math! Instead, search for and install two libraries: **Adafruit GFX Library** and **Adafruit SSD1306**. These libraries contain pre-written code that makes talking to our OLED screen super easy.
 
 ## Connecting the Dots (The Wiring)
 
@@ -124,7 +124,7 @@ The `#define` lines are just us giving the computer some simple nicknames. Inste
 
 ### 2. Drawing with 1s and 0s
 
-If you squint your eyes and look at the 1s in that block of code, you can actually see the shape of a heart! A 1 tells the screen to turn a tiny lightbulb on, and a 0 tells it to leave it dark. We save this picture under the name heart_bmp so we can stamp it on the screen later ♡
+If you squint your eyes and look at the 1s in that block of code, you can actually see the shape of a heart! A 1 tells the screen to turn a tiny lightbulb on, and a 0 tells it to leave it dark. We save this picture under the name `heart_bmp` so we can stamp it on the screen later ♡
 
 ```cpp
 const unsigned char heart_bmp[] PROGMEM = {
@@ -145,14 +145,16 @@ Usually, when beginners want a computer to wait before doing the next thing, the
 To fix this, we use `millis()`. Instead of going to sleep, `millis()` tells the Arduino to constantly check a stopwatch. It says, "Keep looking at your watch! When 1.8 seconds pass, change the lyrics. When 230 milliseconds pass, make the guy dance!" This is called non-blocking code, and it lets our stick figure dance smoothly while the song lyrics scroll by!
 
 ### 4. The Floating Particle Effects (The Hearts)
-To make the background look like a real party, we stamp our heart_bmp onto the screen. But we want them to float upwards!
+
+To make the background look like a real party, we stamp our `heart_bmp` onto the screen. But we want them to float upwards!
+
 On our screen, a Y-coordinate of 64 is the very bottom, and 0 is the very top.
 
 ```cpp
 int heart1_Y = 64 - ((timeNow / 40) % 70);
 display.drawBitmap(120, heart1_Y, heart_bmp, 5, 5, SSD1306_WHITE);
 ```
-                                              GIF OF FLOATING HEARTS IN OLED GOES HERE
+                                              **GIF OF FLOATING HEARTS IN OLED GOES HERE**
 
 ### 5. Choreographing the Dance
 
@@ -164,7 +166,7 @@ Snippets on how you can construct your own cutee Stick Man, Woman or even tun tu
 display.drawCircle();
 display.drawLine();
 ```
-                                                  GIF OF STICK MAN DANCING w HEARTS GOES HERE
+                                                  **GIF OF STICK MAN DANCING w HEARTS GOES HERE**
 
 Instead of an image, we use math to draw shapes. How does he move? Remember our `millis()` stopwatch? Every 230 milliseconds, a variable called `danceBeat` flips between 0 and 1.
 
@@ -178,18 +180,19 @@ I love choreographing dances, so I had to make my stick figure bounce to the exa
 Every time the stopwatch hits that 230ms mark, we tell the stick figure to throw his arms up and bounce his Y-coordinate up by 4 pixels.
 
 ### 6. The Digital Teleprompter :
-Now for the final piece....drumrollls...the lyrics! This is where you get to customize the code to match your own favorite song.
 
-We use an `if / else if` statement like a movie script. The Arduino checks our millis() stopwatch to see what "phase" of the song we are in, and prints the correct lyrics to the screen!
+Now for the final piece.. drumrolls 🥁... the lyrics! This is where you get to customize the code to match your own favorite song.
+
+We use an `if` / `else if` statement like a movie script. The Arduino checks our `millis()` stopwatch to see what "phase" of the song we are in, and prints the correct lyrics to the screen!
 
 ```cpp
 if (phase == 0) {
-    display.setCursor(0, 8);
-    display.println("If you"); display.println("go hard"); display.println("you gotta");
-  } else if (phase == 1) {
-    display.setCursor(0, 8);
-    display.println("get on"); display.println("the"); display.println("floor");
-  }
+  display.setCursor(0, 8);
+  display.println("If you"); display.println("go hard"); display.println("you gotta");
+} else if (phase == 1) {
+  display.setCursor(0, 8);
+  display.println("get on"); display.println("the"); display.println("floor");
+}
 ```
 
 Prefer to watch the whole thing come together? Here's the full walkthrough:
@@ -207,7 +210,7 @@ You don't even need physical hardware to try this! I built a completely free, br
 - Test it on [Tinkercad](https://www.tinkercad.com/things/iR0SCeiSxOJ-pocket-concert-lcd-music-visualizer) (connection diagram and code differs, since it uses an LCD instead of an OLED)
 - [Full Source Code (GitHub)](https://github.com/Shiyx27/OLED_Pocket_Concert)
 
-(P.S. Music in the video is purely for the vibes......at this budget, you're getting a silent disco, not a JBL speaker lol)
+(P.S. Music in the video is purely for the vibes... at this budget, you're getting a silent disco, not a JBL speaker lol)
 
 ## The Official Scrolls
 
