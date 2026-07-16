@@ -66,9 +66,11 @@ This is a super small, super bright screen where our rave will actually happen.
 
 **OLED** is just a fancy hardware term that means "a screen made of thousands of teeny-tiny lightbulbs that can turn on/off almost instantly." This display technology is used in TVs, computers, smartphones, etc.
 
+Our Tiny TV has a technical name: the **SSD1306 128x64 OLED**. 
+
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/oledwsong.jpeg" />
 
-Our Tiny TV has a technical name: the **SSD1306 128x64 OLED**. 128x64 means the screen is a grid made of 128 tiny lights across and 64 lights down. To make the Arduino talk to this screen, they use a language called I2C (Inter-Integrated Circuit).
+The "128x64" means the screen is made up of a grid of tiny light. 128 across and 64 down. To make the Arduino talk to this screen, they use a language called I2C (Inter-Integrated Circuit).
 
 Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate 10, 25!"), and the screen instantly follows the order. That's why we only need those two special wires: SDA (the data tube) and SCL (the clock that keeps the deliveries on schedule).
 
