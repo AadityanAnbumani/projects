@@ -201,7 +201,7 @@ To draw the little floating hearts on our screen, we literally draw a picture us
 
 ### 3. The Ultimate Secret: millis() vs delay()
 
-Usually, when beginners want a computer to wait before doing the next thing, they use a command called `delay()`. But `delay()` is like telling the Arduino to go to sleep! If the Arduino is asleep, it can't update the lyrics and make the stick figure dance at the same time. Everything freezes.
+Usually, when beginners want a microcontroller to wait before doing the next thing, they use a command called `delay()`. But `delay()` is like telling the Arduino to go to sleep! If the Arduino is asleep, it can't update the lyrics and make the stick figure dance at the same time. Everything freezes.
 
 To fix this, we use `millis()`. Instead of going to sleep, `millis()` tells the Arduino to constantly check a stopwatch. It says, "Keep looking at your watch! When 1.8 seconds pass, change the lyrics. When 230 milliseconds pass, make the guy dance!" This is called non-blocking code, and it lets our stick figure dance smoothly while the song lyrics scroll by!
 
