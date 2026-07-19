@@ -55,10 +55,7 @@ Think of it as a tiny, pocket-sized computer. Just like your laptop, a microcont
 
 However, it doesn’t have a built-in screen or a keyboard. It is completely blind and deaf until we plug things into it, and it doesn't know how to do anything until we give it a list of rules (our code). Once we type up our instructions and send them to the Arduino, it becomes the boss and tells all the connected lights, screens, and motors exactly what to do.
 
-**Where to buy it:** You can grab the exact Arduino UNO R4 Minima I used from: 
-
-- [Official Arduino Store](https://store-usa.arduino.cc/products/uno-r4-minima)
-- [Amazon](https://a.co/d/0b24YgYf)
+**Where to buy it:** [Official Arduino Store](https://store-usa.arduino.cc/products/uno-r4-minima), [Amazon](https://a.co/d/0b24YgYf)
 
 **Pro Tip: Swapping the Brain!** You don't have to use the UNO R4! Microcontrollers are like different breeds of dogs – they might look a little different, but they all love to play fetch. You can also use an Arduino Nano, an ESP32 (which even has built-in Wi-Fi and Bluetooth!), or a Raspberry Pi Pico. As long as your new board has an I2C connection (more on that below!), you can throw the pocket rave.
 
@@ -78,7 +75,7 @@ Let's break down that long name:
 - 128x64 means the screen is made up of a grid of tiny lights. 128 across and 64 down. Total of 8,192.
 - I2C (Inter-Integrated Circuit) is the communication method the Arduino uses to talk to the display.
 
-Think of I2C as a tiny, high-speed delivery tube. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate (10, 25)"), and the screen follows the order almost instantly. That's why we only need those two special wires: 
+Think of I2C as a messaging system. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate (10, 25)"), and the screen follows the order almost instantly. That's why we only need those two special wires: 
 
 - SDA (the data tube) 
 - SCL (the clock that keeps the deliveries on schedule)
@@ -92,12 +89,13 @@ The good news? You don't need to understand how this works! We'll use a library 
 
 To send our code from our laptop to the Arduino (and to give the Arduino power), we need a USB cable usually provided with the Arduino. The Arduino UNO R4 Minima uses a standard USB-C connection, so a regular phone charging/data cable works perfectly!
 
+**Where to buy it:** [Adafruit](https://www.adafruit.com/product/4199)
 
 ### 4. The Messengers: Jumper Wires 🪢
 
 Finally, we need 4 Female-to-Male jumper wires. These are essentially strings of metal encased in colored plastic. They carry electricity and secret messages back and forth between the Brain and the Tiny TV.
 
-**Where to buy it:** [Amazon](https://a.co/d/042vadtF).
+**Where to buy it:** [Adafruit](https://www.adafruit.com/product/1953), [Amazon](https://a.co/d/042vadtF)
 
 ## Software Setup
 
