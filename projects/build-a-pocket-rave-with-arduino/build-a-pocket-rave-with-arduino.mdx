@@ -212,11 +212,29 @@ To draw the little floating hearts on our screen, we literally draw a picture us
 - `1` tells the screen to turn a tiny lightbulb on.
 - `0` tells the screen to leave it dark.
 
-### 3. The Ultimate Secret: millis() vs delay()
+### 3. The Ultimate Secret: millis() vs. delay()
 
-Usually, when beginners want a microcontroller to wait before doing the next thing, they use a command called `delay()`. But `delay()` is like telling the Arduino to go to sleep! If the Arduino is asleep, it can't update the lyrics and make the stick figure dance at the same time. Everything freezes.
+When beginners first learn Arduino, they often use a function called `delay()` whenever they want the microcontroller to wait before doing the next task. But `delay()` is like telling the Arduino to take a nap! While the Arduino is asleep, it can't do anything else. Not update the lyrics, not make the stick figure dance, nothing. Everything freezes until the delay is over.
 
-To fix this, we use `millis()`. Instead of going to sleep, `millis()` tells the Arduino to constantly check a stopwatch. It says, "Keep looking at your watch! When 1.8 seconds pass, change the lyrics. When 230 milliseconds pass, make the guy dance!" This is called non-blocking code, and it lets our stick figure dance smoothly while the song lyrics scroll by!
+To solve this, we use `millis()`. Instead of putting the Arduino to sleep, `millis()` tells the Arduino to constantly check a stopwatch. It says, "Keep looking at your watch! When 1.8 seconds pass, change the lyrics. When 230 milliseconds pass, make the guy dance!" This is called non-blocking code, and it lets our stick figure dance smoothly while the song lyrics scroll by!
+
+```cpp
+unsigned long timeNow = millis();
+
+// 130 BPM pacing: 1.8 second chunks for a 28.8 second loop 
+
+unsigned long songLoop = timeNow % 28800; 
+
+int phase = songLoop / 1800; 
+```
+
+The `timeNow` variable acts like a continuous stopwatch, capturing the exact number of milli sec since we are using the `millis()` function. 
+
+While the `songLoop` uses the `%` modulo operator to chop that never ending stopwatch into perfectly repeating 28.8 second (28800 ms) – means the stopwatch resets back to 0 after 28.8s and goes back to the first line of the given lyrics.
+
+Finally, `phase` divides the current position within the 28.8-second loop, each lasting 1.8 seconds. Each section corresponds to one line of the song lyrics, so every 1.8 seconds the displayed lyric advances to the next line.
+
+I came up with 28.8-second loop duration was determined experimentally. I adjusted the timing through several rounds of trial and error until the lyric transitions matched the rhythm and tempo of the song.
 
 ### 4. The Floating Particle Effects (The Hearts)
 
