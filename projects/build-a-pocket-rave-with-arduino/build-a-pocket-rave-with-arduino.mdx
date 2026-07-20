@@ -173,6 +173,7 @@ At the very top of our code, we write things like:
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
+
 ```
 
 Think of these like giving the Arduino a dictionary. Instead of teaching the Arduino what a "screen" is from scratch, we just hand it a book that says, "Here is how you talk to the tiny TV."
@@ -192,6 +193,12 @@ These definitions specify the dimensions of a display (often an OLED screen):
 |                            |
 +----------------------------+
 ```
+
+```cpp
+#define OLED_RESET    -1 
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+```
+This code sets up your main display object with the screen's dimensions and I2C communication, while the -1 tells the Arduino that the OLED doesn't use a dedicated reset wire.
 
 ### 2. Drawing with 1s and 0s
 
@@ -216,43 +223,80 @@ To draw the little floating hearts on our screen, we literally draw a picture us
 - `1` tells the screen to turn a tiny lightbulb on.
 - `0` tells the screen to leave it dark.
 
-### 3. The Ultimate Secret: millis() vs. delay()
+### 3.  The Initial Setup 
+
+The setup() block is the initial boot sequence of our screen. 
+
+```cpp
+void setup() {
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    for(;;); 
+  }
+  
+  // LARGE FONT
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+}
+```
+`display.begin(SSD1306_SWITCHCAPVCC, 0x3C`  - The Arduino is knocking on the screen's door to wake it up. The 0x3C is just the screen's "street address" so the Arduino knows exactly where to send your graphics.
+
+`if(!...) { for(;;); }` - The Arduino is knocking on the screen's door to wake it up. The 0x3C is just the screen's "street address" so the Arduino knows exactly where to send your graphics.
+
+`setTextSize(2); setTextColor(SSD1306_WHITE)` - Now that the screen is awake and ready, this simply sets the font size and color. 
+
+
+### 4. The Ultimate Secret: millis() vs. delay()
+
+`void loop() {`: This is the main soul of our Arduino. Everything inside this block runs over and over again, incredibly fast, forever!
+
+`display.clearDisplay();`: It acts as an eraser that wipes the screen completely clean before drawing the next frame of your animation so nothing gets messy or overlaps.
+
+```cpp
+
+void loop() {
+  display.clearDisplay();
+  unsigned long timeNow = millis();
+  // 130 BPM pacing: 1.8 second chunks for a 3.6 second loop
+  unsigned long songLoop = timeNow % 3600; 
+  int phase = songLoop / 1800; 
+```
 
 When beginners first learn Arduino, they often use a function called `delay()` whenever they want the microcontroller to wait before doing the next task. But `delay()` is like telling the Arduino to take a nap! While the Arduino is asleep, it can't do anything else. Not update the lyrics, not make the stick figure dance, nothing. Everything freezes until the delay is over.
 
 To solve this, we use `millis()`. Instead of putting the Arduino to sleep, `millis()` tells the Arduino to constantly check a stopwatch. It says, "Keep looking at your watch! When 1.8 seconds pass, change the lyrics. When 230 milliseconds pass, make the guy dance!" This is called non-blocking code, and it lets our stick figure dance smoothly while the song lyrics scroll by!
 
-```cpp
-unsigned long timeNow = millis();
-
-// 130 BPM pacing: 1.8 second chunks for a 28.8 second loop 
-
-unsigned long songLoop = timeNow % 28800; 
-
-int phase = songLoop / 1800; 
-```
-
 The `timeNow` variable acts like a continuous stopwatch, capturing the exact number of milli sec since we are using the `millis()` function. 
 
-While the `songLoop` uses the `%` modulo operator to chop that never ending stopwatch into perfectly repeating 28.8 second (28800 ms) – means the stopwatch resets back to 0 after 28.8s and goes back to the first line of the given lyrics.
+While the `songLoop` uses the `%` modulo operator to chop that never ending stopwatch into perfectly repeating 3.6 second (3600 ms) – means the stopwatch resets back to 0 after 3.6s and goes back to the first line of the given lyrics.
 
-Finally, `phase` divides the current position within the 28.8-second loop, each lasting 1.8 seconds. Each section corresponds to one line of the song lyrics, so every 1.8 seconds the displayed lyric advances to the next line.
+Finally, `phase` divides the current position within the 3.6-second loop, each lasting 1.8 seconds. Each section corresponds to one line of the song lyrics, so every 1.8 seconds the displayed lyric advances to the next line.
 
-I came up with 28.8-second loop duration was determined experimentally. I adjusted the timing through several rounds of trial and error until the lyric transitions matched the rhythm and tempo of the song.
+I came up with 3.6-second loop duration was determined experimentally. I adjusted the timing through several rounds of trial and error until the lyric transitions matched the rhythm and tempo of the song.
 
-### 4. The Floating Particle Effects (The Hearts)
 
-To make the background look like a real party, we stamp our `heart_bmp` onto the screen. But we want them to float upwards!
+### 5. The Floating Particle Effects (The Hearts)
+
+To make the background look like a real party, we stamp our `heart_bmp` onto the screen. But we want two of em, and we want them to float upwards!
   
 On our screen, a Y-coordinate of 64 is the very bottom, and 0 is the very top.
 
 ```cpp
-int heart1_Y = 64 - ((timeNow / 40) % 70);
+void loop() {
+....
 
-display.drawBitmap(120, heart1_Y, heart_bmp, 5, 5, SSD1306_WHITE);
+  int heart1_Y = 64 - ((timeNow / 40) % 70);
+  int heart2_Y = 64 - (((timeNow + 1500) / 40) % 70); 
+  
+  display.drawBitmap(120, heart1_Y, heart_bmp, 5, 5, SSD1306_WHITE);
+  display.drawBitmap(95,  heart2_Y, heart_bmp, 5, 5, SSD1306_WHITE);
+
+....
+
 ```
 
 The OLED screens map their Y-axis upside down so 64 is the floor and we subtract it with the slowed-down timer `/ 40` to make the hearts float upwards. The `% 70` acts as the teleporter and it instantly snaps the heart back to the floor once it reaches the top so the party never ends.
+
+To make it look natural, we sneak a `+ 1500` into the second heart's timer to stagger its launch so they aren't floating right on top of each other. Finally, the `120` and `95` lock them into their own separate vertical dance lanes on the far right side of the screen so they don't crash into your stick figure!
 
 Let's run the code!
 
@@ -263,7 +307,7 @@ If everything is working correctly, you should see the floating hearts moving up
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/hearts.gif" style={{ width: "30%", height: "auto" }} />
 
-### 5. Choreographing the Dance
+### 6. Choreographing the Dance
 
 When people see the little guy dancing on the screen, they usually think it's a tiny video or a GIF. Nope! We are literally drawing the figure from scratch, 60 times a second, using a digital Etch-A-Sketch. 🕺
 
@@ -287,7 +331,64 @@ I love choreographing dances, so I had to make my stick figure bounce to the exa
 
 Every time the stopwatch hits that 230ms mark, we tell the stick figure to throw his arms up and bounce his Y-coordinate up by 4 pixels.
 
-### 6. The Digital Teleprompter
+No matter if he is at the peak of his jump or grounded in a squat, his head and spine stay the exact same. We anchor them directly to our bouncing `guyX` and `guyY` variables.
+
+```cpp
+// The Head
+display.drawCircle(guyX, guyY, 4, SSD1306_WHITE); 
+// The Spine
+display.drawLine(guyX, guyY + 4, guyX, guyY + 16, SSD1306_WHITE);
+```
+
+Then, we use a simple `if/else` statement acting as our rapid-fire frame switcher for his limbs:
+
+**Beat 1 (The Jump)**: We draw four lines spreading straight outward for his arms and legs.
+
+**Beat 0 (The Squat)**: We bring his arms down and bend his knees! Bending a joint means drawing two distinct lines for each leg: one line from the hip to the knee, and a second line connecting the knee to the foot.
+
+Here is the complete code that handles the timing, the bounce, and every single coordinate needed to make him groove:
+
+```cpp
+void loop() {
+
+...
+
+// He ONLY drops in during specific lyric phases
+  bool showStickFigure = (phase == 1);
+
+  if (showStickFigure) {
+    // 130 BPM Math: 230ms for a fast, club-style eighth-note bounce!
+    int danceBeat = (timeNow / 230) % 2; 
+    int guyX = 110; 
+    int guyY = 25 + (danceBeat == 1 ? -4 : 0);  
+    
+    // Draw the Head and Spine (These stay the same every frame)
+    display.drawCircle(guyX, guyY, 4, SSD1306_WHITE); 
+    display.drawLine(guyX, guyY + 4, guyX, guyY + 16, SSD1306_WHITE); 
+
+    if (danceBeat == 1) {
+      // POSE 1: THE JUMP (Arms up, legs wide)
+      display.drawLine(guyX, guyY + 8, guyX - 10, guyY - 2, SSD1306_WHITE);       // Left Arm
+      display.drawLine(guyX, guyY + 8, guyX + 10, guyY - 2, SSD1306_WHITE);       // Right Arm
+      display.drawLine(guyX, guyY + 16, guyX - 8, guyY + 28, SSD1306_WHITE);      // Left Leg
+      display.drawLine(guyX, guyY + 16, guyX + 8, guyY + 28, SSD1306_WHITE);      // Right Leg
+    } else {
+      // POSE 2: THE SQUAT (Arms down, knees bent)
+      display.drawLine(guyX, guyY + 8, guyX - 8, guyY + 16, SSD1306_WHITE);       // Left Arm
+      display.drawLine(guyX, guyY + 8, guyX + 8, guyY + 16, SSD1306_WHITE);       // Right Arm
+      
+      display.drawLine(guyX, guyY + 16, guyX - 6, guyY + 24, SSD1306_WHITE);      // Left Leg (Thigh to knee)
+      display.drawLine(guyX - 6, guyY + 24, guyX - 2, guyY + 30, SSD1306_WHITE);  // Left Leg (Knee to foot)
+      
+      display.drawLine(guyX, guyY + 16, guyX + 6, guyY + 24, SSD1306_WHITE);      // Right Leg (Thigh to knee)
+      display.drawLine(guyX + 6, guyY + 24, guyX + 2, guyY + 30, SSD1306_WHITE);  // Right Leg (Knee to foot)
+    }
+  }
+```
+
+
+
+### 7. The Digital Teleprompter
 
 Now for the final piece... _drumroll, please_ 🥁... the lyrics! This is where you get to customize the code so it matches your favorite song. Mine is ["On The Floor"](https://www.youtube.com/watch?v=t4H_Zoh7G5A) by J.Lo (feat. Pitbull):
 
@@ -297,18 +398,29 @@ Now for the final piece... _drumroll, please_ 🥁... the lyrics! This is where 
 
 We use an `if` / `else if` statement like a movie script. The Arduino checks our `millis()` stopwatch to see what "phase" of the song we are in, and prints the correct lyrics to the screen!
 
+**Want to swap in your own track?** Just change the printed text inside each block, add more `else if` phases to make the song longer, and tweak that `1800` (1.8 seconds) phase timer we made earlier to perfectly match your new song's BPM.
+
 ```cpp
-if (phase == 0) {
-  display.setCursor(0, 8);
-  display.println("If you"); 
-  display.println("go hard"); 
-  display.println("you gotta");
-} else if (phase == 1) {
-  display.setCursor(0, 8);
-  display.println("get on"); 
-  display.println("the"); 
-  display.println("floor");
-}
+void loop() {
+
+...
+
+  if (phase == 0) {
+    display.setCursor(0, 8);
+    display.println("If you"); 
+    display.println("go hard"); 
+    display.println("you gotta");
+  } else if (phase == 1) {
+    display.setCursor(0, 8);
+    display.println("get on"); 
+    display.println("the"); 
+    display.println("floor");
+  }
+//TO ADD MORE LYRICS: Just copy the block above, change 'phase == 1' to 'phase == 2', and so on to add more lyrics....  
+// and type your new lyrics inside the display.println() commands!
+  
+  display.display();
+}// closing the void loop
 ```
 
 ## Conclusion
