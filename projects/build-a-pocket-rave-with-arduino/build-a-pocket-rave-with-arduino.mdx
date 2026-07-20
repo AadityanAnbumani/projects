@@ -300,12 +300,9 @@ void setup() {
 }
 ```
 
-`display.begin(SSD1306_SWITCHCAPVCC, 0x3C)` - The Arduino is knocking on the screen's door to wake it up. The 0x3C is just the screen's "street address" so the Arduino knows exactly where to send your graphics.
+`if` statement: The Arduino is knocking on the screen's door to wake it up. The `0x3C` is just the screen's "street address" so the Arduino knows exactly where to send your graphics.
 
-`if(!...) { for(;;); }` - The Arduino is knocking on the screen's door to wake it up. The 0x3C is just the screen's "street address" so the Arduino knows exactly where to send your graphics.
-
-`setTextSize(2); setTextColor(SSD1306_WHITE)` - Now that the screen is awake and ready, this simply sets the font size and color. 
-
+Now that the screen is awake and ready, this simply sets the font size and color with `.setTextSize()` and `.setTextColor()`
 
 ### 4. The Ultimate Secret: millis() vs. delay()
 
