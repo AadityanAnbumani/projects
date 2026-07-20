@@ -140,7 +140,7 @@ void loop() {
 ```
 
 - `setup()` runs once when the board powers on or resets. Use it to initialize pins, serial communication, sensors, etc.
-- `loop()` runs over and over as long as the board has power. This is where the main program logic goes.
+- `loop()` runs repeatedly as long as the board has power. This is where the main program logic goes.
 
 We'll come back to this in a bit!
 
@@ -156,7 +156,7 @@ Here is a super easy way to remember the wiring:
 
 - **VCC** → **3.3V** (Power): VCC powers the display, just like a TV needs electricity to turn on. It connects to the Arduino’s 3.3-volt power pin.
 - **GND** → **GND** (Ground):  GND gives electricity a safe path back, completing the circuit so everything works safely. Think of it like a pair of shoes keeping everything grounded.
-- **SDA** → **A4** (Data): SDA stands for Serial Data and it carries text and pictures from the Arduino to the display.
+- **SDA** → **A4** (Data): SDA stands for Serial Data and it carries text and pictures to the display.
 - **SCL** → **A5** (Clock): SCL stands for Serial Clock. It keeps the rhythm and timing so the screen doesn't get confused.
 
 Here's an easy mememory trick: Just count the letters!
@@ -188,7 +188,7 @@ Now for the fun part: teaching the Brain how to throw a party using C++!
 
 ### 1. Giving the Brain a Dictionary
 
-At the very top of our code, above `setup()`, we write things like:
+At the very top of the program, even above `setup()`, add:
 
 ```cpp
 #include <Wire.h>
@@ -217,13 +217,15 @@ These definitions specify the dimensions of a display (often an OLED screen):
 +----------------------------+
 ```
 
+Next, add:
+
 ```cpp
 #define OLED_RESET    -1 
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 ```
 
-This code sets up your main display object with the screen's dimensions and I2C communication, while the -1 tells the Arduino that the OLED doesn't use a dedicated reset wire.
+This code sets up your main display object with the screen's dimensions and I2C communication, while the `-1` tells the Arduino that the OLED doesn't use a dedicated reset wire.
 
 ### 2. Drawing with 1s and 0s
 
@@ -248,7 +250,7 @@ To draw the little floating hearts on our screen, we literally draw a picture us
 - `1` tells the screen to turn a tiny lightbulb on.
 - `0` tells the screen to leave it dark.
 
-Your code should look like:
+By this point, your program should now look like:
 
 ```cpp
 #include <Wire.h>
@@ -280,9 +282,11 @@ void loop() {
 }
 ```
 
-### 3.  The Initial Setup 
+### 3. The Initial Setup 
 
-The setup() block is the initial boot sequence of our screen. 
+The `setup()` block is the initial boot sequence of our screen. 
+
+Inside it, let's add:
 
 ```cpp
 void setup() {
@@ -295,7 +299,8 @@ void setup() {
   display.setTextColor(SSD1306_WHITE);
 }
 ```
-`display.begin(SSD1306_SWITCHCAPVCC, 0x3C`  - The Arduino is knocking on the screen's door to wake it up. The 0x3C is just the screen's "street address" so the Arduino knows exactly where to send your graphics.
+
+`display.begin(SSD1306_SWITCHCAPVCC, 0x3C)` - The Arduino is knocking on the screen's door to wake it up. The 0x3C is just the screen's "street address" so the Arduino knows exactly where to send your graphics.
 
 `if(!...) { for(;;); }` - The Arduino is knocking on the screen's door to wake it up. The 0x3C is just the screen's "street address" so the Arduino knows exactly where to send your graphics.
 
