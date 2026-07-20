@@ -403,17 +403,16 @@ Every time the stopwatch hits that 230ms mark, we tell the stick figure to throw
 No matter if he is at the peak of his jump or grounded in a squat, his head and spine stay the exact same. We anchor them directly to our bouncing `guyX` and `guyY` variables.
 
 ```cpp
-// The Head
-display.drawCircle(guyX, guyY, 4, SSD1306_WHITE); 
-// The Spine
+// The head
+display.drawCircle(guyX, guyY, 4, SSD1306_WHITE);
+// The spine
 display.drawLine(guyX, guyY + 4, guyX, guyY + 16, SSD1306_WHITE);
 ```
 
-Then, we use a simple `if/else` statement acting as our rapid-fire frame switcher for his limbs:
+Then, we use a simple `if`/`else` statement acting as our rapid-fire frame switcher for his limbs:
 
-**Beat 1 (The Jump)**: We draw four lines spreading straight outward for his arms and legs.
-
-**Beat 0 (The Squat)**: We bring his arms down and bend his knees! Bending a joint means drawing two distinct lines for each leg: one line from the hip to the knee, and a second line connecting the knee to the foot.
+- Beat 1 (The Jump): We draw four lines spreading straight outward for his arms and legs.
+- Beat 0 (The Squat): We bring his arms down and bend his knees! Bending a joint means drawing two distinct lines for each leg: one line from the hip to the knee, and a second line connecting the knee to the foot.
 
 Here is the complete code that handles the timing, the bounce, and every single coordinate needed to make him groove:
 
@@ -430,7 +429,7 @@ void loop() {
     int guyX = 110; 
     int guyY = 25 + (danceBeat == 1 ? -4 : 0);  
     
-    // Draw the Head and Spine (These stay the same every frame)
+    // Draw the head and spine (These stay the same every frame)
     display.drawCircle(guyX, guyY, 4, SSD1306_WHITE); 
     display.drawLine(guyX, guyY + 4, guyX, guyY + 16, SSD1306_WHITE); 
 
