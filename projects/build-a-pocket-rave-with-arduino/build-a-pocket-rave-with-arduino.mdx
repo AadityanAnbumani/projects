@@ -306,12 +306,11 @@ Now that the screen is awake and ready, this simply sets the font size and color
 
 ### 4. The Ultimate Secret: millis() vs. delay()
 
-`void loop() {`: This is the main soul of our Arduino. Everything inside this block runs over and over again, incredibly fast, forever!
+The `loop()` block is the main program of our Arduino. Everything inside this block runs over and over again, incredibly fast, forever!
 
 `display.clearDisplay();`: It acts as an eraser that wipes the screen completely clean before drawing the next frame of your animation so nothing gets messy or overlaps.
 
 ```cpp
-
 void loop() {
   display.clearDisplay();
   unsigned long timeNow = millis();
