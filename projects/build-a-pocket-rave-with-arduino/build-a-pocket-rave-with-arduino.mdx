@@ -308,11 +308,20 @@ Now that the screen is awake and ready, this simply sets the font size and color
 
 The `loop()` block is the main program of our Arduino. Everything inside this block runs over and over again, incredibly fast, forever!
 
-`display.clearDisplay();`: It acts as an eraser that wipes the screen completely clean before drawing the next frame of your animation so nothing gets messy or overlaps.
+Inside it, let's add:
+
+```cpp
+display.clearDisplay();
+```
+
+It acts as an eraser that wipes the screen completely clean before drawing the next frame of your animation so nothing gets messy or overlaps.
+
+Then add more:
 
 ```cpp
 void loop() {
   display.clearDisplay();
+  
   unsigned long timeNow = millis();
   // 130 BPM pacing: 1.8 second chunks for a 3.6 second loop
   unsigned long songLoop = timeNow % 3600; 
