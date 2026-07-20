@@ -306,7 +306,7 @@ Now that the screen is awake and ready, `.setTextSize()` and `.setTextColor()` s
 
 ### 4. The Ultimate Secret: millis() vs. delay()
 
-The `loop()` block is the main program of our Arduino. Everything inside this block runs over and over again, incredibly fast, forever!
+The `loop()` block is the main program of our Arduino. Everything inside runs over and over again!
 
 Inside it, let's add:
 
@@ -323,9 +323,11 @@ void loop() {
   display.clearDisplay();
   
   unsigned long timeNow = millis();
+
   // 130 BPM pacing: 1.8 second chunks for a 3.6 second loop
   unsigned long songLoop = timeNow % 3600; 
   int phase = songLoop / 1800; 
+}
 ```
 
 When beginners first learn Arduino, they often use a function called `delay()` whenever they want the microcontroller to wait before doing the next task. But `delay()` is like telling the Arduino to take a nap! While the Arduino is asleep, it can't do anything else. Not update the lyrics, not make the stick figure dance, nothing. Everything freezes until the delay is over.
@@ -349,16 +351,16 @@ On our screen, a Y-coordinate of 64 is the very bottom, and 0 is the very top.
 
 ```cpp
 void loop() {
-....
-
+  ...
+  
   int heart1_Y = 64 - ((timeNow / 40) % 70);
   int heart2_Y = 64 - (((timeNow + 1500) / 40) % 70); 
   
   display.drawBitmap(120, heart1_Y, heart_bmp, 5, 5, SSD1306_WHITE);
   display.drawBitmap(95,  heart2_Y, heart_bmp, 5, 5, SSD1306_WHITE);
-
-....
-
+  
+  ...
+}
 ```
 
 The OLED screens map their Y-axis upside down so 64 is the floor and we subtract it with the slowed-down timer `/ 40` to make the hearts float upwards. The `% 70` acts as the teleporter and it instantly snaps the heart back to the floor once it reaches the top so the party never ends.
@@ -417,10 +419,9 @@ Here is the complete code that handles the timing, the bounce, and every single 
 
 ```cpp
 void loop() {
+  ...
 
-...
-
-// He ONLY drops in during specific lyric phases
+  // He ONLY drops in during specific lyric phases
   bool showStickFigure = (phase == 1);
 
   if (showStickFigure) {
@@ -454,7 +455,6 @@ void loop() {
 ```
 
 
-
 ### 7. The Digital Teleprompter
 
 Now for the final piece... _drumroll, please_ 🥁... the lyrics! This is where you get to customize the code so it matches your favorite song. Mine is ["On The Floor"](https://www.youtube.com/watch?v=t4H_Zoh7G5A) by J.Lo (feat. Pitbull):
@@ -469,9 +469,8 @@ We use an `if` / `else if` statement like a movie script. The Arduino checks our
 
 ```cpp
 void loop() {
-
-...
-
+  ...
+  
   if (phase == 0) {
     display.setCursor(0, 8);
     display.println("If you"); 
@@ -483,11 +482,11 @@ void loop() {
     display.println("the"); 
     display.println("floor");
   }
-//TO ADD MORE LYRICS: Just copy the block above, change 'phase == 1' to 'phase == 2', and so on to add more lyrics....  
-// and type your new lyrics inside the display.println() commands!
+  // TO ADD MORE LYRICS: Just copy the block above, change 'phase == 1' to 'phase == 2', and so on to add more lyrics... 
+  // and type your new lyrics inside the display.println() commands!
   
   display.display();
-}// closing the void loop
+}
 ```
 
 ## Conclusion
