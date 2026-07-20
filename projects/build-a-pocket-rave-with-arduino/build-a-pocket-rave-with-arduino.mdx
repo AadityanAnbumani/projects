@@ -125,6 +125,25 @@ Before we plug our physical wires in, we need a place to write our instructions 
 
 These libraries contain pre-written code that makes talking to our OLED screen super easy.
 
+## Arduino Sketch Template
+
+The default code inside the code editor is the "Bare Minimum" sketch:
+
+```cpp
+void setup() {
+  // put your setup code here, to run once:
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  
+}
+```
+
+- `setup()` runs once when the board powers on or resets. Use it to initialize pins, serial communication, sensors, etc.
+- `loop()` runs over and over for as long as the board has power. This is where your main program logic goes.
+
 ## Connecting the Dots (The Wiring)
 
 How do we get the Brain to talk to the TV? We connect them with our 4 messenger wires! 
@@ -169,7 +188,7 @@ Now for the fun part: teaching the Brain how to throw a party using C++!
 
 ### 1. Giving the Brain a Dictionary
 
-At the very top of our code, we write things like:
+At the very top of our code, above `setup()`, we write things like:
 
 ```cpp
 #include <Wire.h>
@@ -228,6 +247,38 @@ To draw the little floating hearts on our screen, we literally draw a picture us
 
 - `1` tells the screen to turn a tiny lightbulb on.
 - `0` tells the screen to leave it dark.
+
+Your code should look like:
+
+```cpp
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET    -1 
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+const unsigned char heart_bmp[] PROGMEM = {
+  0b01010000,
+  0b11111000, 
+  0b11111000,
+  0b01110000,
+  0b00100000
+};
+
+void setup() {
+  // put your setup code here, to run once:
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  
+}
+```
 
 ### 3.  The Initial Setup 
 
