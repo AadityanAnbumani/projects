@@ -330,9 +330,9 @@ void loop() {
 }
 ```
 
-When beginners first learn Arduino, they often use a function called `delay()` whenever they want the microcontroller to wait before doing the next task. But `delay()` is like telling the Arduino to take a nap! While the Arduino is asleep, it can't do anything else. Not update the lyrics, not make the stick figure dance, nothing. Everything freezes until the delay is over.
+When beginners first learn Arduino, they often use the `delay()` function to make the Arduino wait, but it pauses everything... the Arduino can't do anything else until the delay ends.
 
-To solve this, we use `millis()`. Instead of putting the Arduino to sleep, `millis()` tells the Arduino to constantly check a stopwatch. It says, "Keep looking at your watch! When 1.8 seconds pass, change the lyrics. When 230 milliseconds pass, make the guy dance!" This is called non-blocking code, and it lets our stick figure dance smoothly while the song lyrics scroll by!
+To solve this, we use `millis()`. Instead of putting the Arduino to sleep, `millis()` acts like a stopwatch, letting the Arduino check how much time has passed while continuing to run other tasks. It says, "Keep looking at your watch! When X seconds pass, change the lyrics. When Y milliseconds pass, make the guy dance!" This non-blocking approach lets our stick figure dance smoothly while the song lyrics scroll at the same time!
 
 The `timeNow` variable acts like a continuous stopwatch, capturing the exact number of milli sec since we are using the `millis()` function. 
 
@@ -345,7 +345,7 @@ I came up with 3.6-second loop duration was determined experimentally. I adjuste
 
 ### 5. The Floating Particle Effects (The Hearts)
 
-To make the background look like a real party, we stamp our `heart_bmp` onto the screen. But we want two of em, and we want them to float upwards!
+To make the background look like a real party, we stamp our `heart_bmp` onto the screen. But we want two of them, and we want them to float upwards!
   
 On our screen, a Y-coordinate of 64 is the very bottom, and 0 is the very top.
 
@@ -374,7 +374,7 @@ Let's run the code!
 
 If everything is working correctly, you should see the floating hearts moving up the screen:
 
-<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/hearts.gif" style={{ width: "30%", height: "auto" }} />
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/hearts.gif" style={{ width: "40%", height: "auto" }} />
 
 ### 6. Choreographing the Dance
 
@@ -387,7 +387,7 @@ display.drawCircle();
 display.drawLine();
 ```
 
-<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/jumping-man.gif" style={{ width: "30%", height: "auto" }} />
+<ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/jumping-man.gif" style={{ width: "40%", height: "auto" }} />
 
 Instead of an image, we use math to draw shapes. How does he move? Remember our `millis()` stopwatch? Every 230 milliseconds, a variable called `danceBeat` flips between 0 and 1.
 
