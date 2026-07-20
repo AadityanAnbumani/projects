@@ -129,18 +129,23 @@ These libraries contain pre-written code that makes talking to our OLED screen s
 
 How do we get the Brain to talk to the TV? We connect them with our 4 messenger wires! 
 
-Here is the super easy secret to remembering how to wire this up forever:
+Here is a super easy way to remember the wiring:
 
 <video width="100%" autoPlay loop muted playsInline>
   <source src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/build-a-pocket-rave-with-arduino/assets/wkConnection (1).mp4" type="video/mp4" />
 </video>
 
-- **VCC** goes to **3.3V**: VCC is the "food." The TV needs energy to light up, so we plug it into the 3.3-volt power pin on the Arduino.
-- **GND** goes to **GND**: This is the "Ground." It gives the electricity a safe place to go after it powers the TV. Think of it like a pair of shoes keeping everything grounded.
-- **SDA** goes to **A4** (The Data Wire): SDA carries the actual pictures and words to the screen.
-- **SCL** goes to **A5** (The Clock Wire): SCL keeps the rhythm and timing so the screen doesn't get confused.
+- **VCC** goes to **3.3V** (Power): VCC is the screen’s power supply. The TV needs energy to light up, so we plug it into the 3.3-volt power pin on the Arduino.
+- **GND** goes to **GND** (Ground): GND gives the electricity a safe place to go after it powers the TV. It completes the circuit and keeps everything working safely. Think of it like a pair of shoes keeping everything grounded.
+- **SDA** goes to **A4** (Data): SDA stands for Serial Data and it carries the actual info (text and pictures) to the screen.
+- **SCL** goes to **A5** (Clock): SCL stands for Serial Clock. It keeps the rhythm and timing so the screen doesn't get confused.
 
-***Just count the letters: SDA handles your DATA (4 letters = Pin A4), while SCL ticks the CLOCK (5 letters = Pin A5)***
+Here's an easy mememory trick: Just count the letters!
+
+- SDA is "data" = 4 letters = Pin A4
+- SCL is "clock" = 5 letters = Pin A5
+
+Once you remember Data → A4 and Clock → A5, you'll never have to look up the wiring again.
 
 <ImageZoom
   src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fbuild-a-pocket-rave-with-arduino%2Fconnection-guide.webp?alt=media"
@@ -156,7 +161,7 @@ Here's an actual photo of the wires connected to the Arduino:
   alt="Wiring photo"
 />
 
-The VCC pin on the OLED is the power supply input. It is recommennded to connect the OLED's VCC to the 3.3 V pin on the Arduino UNO. Although most OLED modules include built-in voltage regulators that allow them to operate at 5 V, using 3.3 V is generally the safer option for long-term reliability. Otherwise, your OLED might eventually turn into an "Oh nooo LED!" 😄
+The VCC pin on the OLED is the power supply input. It is recommennded to connect the OLED's VCC to the 3.3V pin on the Arduino UNO. Although most OLED modules include built-in voltage regulators that allow them to operate at 5 V, using 3.3-volt is generally the safer option for long-term reliability. Otherwise, your OLED might eventually turn into an "Oh nooo LED!" 😄
 
 ## Writing the Magic Spells (The Code)
 
@@ -173,7 +178,6 @@ At the very top of our code, we write things like:
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-
 ```
 
 Think of these like giving the Arduino a dictionary. Instead of teaching the Arduino what a "screen" is from scratch, we just hand it a book that says, "Here is how you talk to the tiny TV."
@@ -196,8 +200,10 @@ These definitions specify the dimensions of a display (often an OLED screen):
 
 ```cpp
 #define OLED_RESET    -1 
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 ```
+
 This code sets up your main display object with the screen's dimensions and I2C communication, while the -1 tells the Arduino that the OLED doesn't use a dedicated reset wire.
 
 ### 2. Drawing with 1s and 0s
