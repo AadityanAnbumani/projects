@@ -338,7 +338,7 @@ The `timeNow` variable acts like a continuous stopwatch, capturing the exact num
 
 While the `songLoop` uses the `%` modulo operator to chop that never ending stopwatch into perfectly repeating 3.6 second (3600 ms) – means the stopwatch resets back to 0 after 3.6s and goes back to the first line of the given lyrics.
 
-Finally, `phase` divides the current position within the 3.6-second loop, each lasting 1.8 seconds. Each section corresponds to one line of the song lyrics, so every 1.8 seconds the displayed lyric advances to the next line.
+Finally, `phase` divides the current position within the 3.6-second loop, each lasting 1.8 seconds. Each section corresponds to one lyric line, so every 1.8 seconds the displayed lyric advances to the next line.
 
 I came up with 3.6-second loop duration was determined experimentally. I adjusted the timing through several rounds of trial and error until the lyric transitions matched the rhythm and tempo of the song.
 
