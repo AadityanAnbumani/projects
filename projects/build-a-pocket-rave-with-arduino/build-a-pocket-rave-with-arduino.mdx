@@ -77,9 +77,12 @@ Let's break down that long name:
 
 - SSD1306 is the display controller model number.
 - 128x64 means the screen is made up of a grid of tiny lights. 128 across and 64 down. Total of 8,192.
-- I2C (Inter-Integrated Circuit) is the communication method the Arduino uses to talk to the display.
+- OLED is the display technology used by the screen (explained above).
+- I²C (Inter-Integrated Circuit) is the communication method the Arduino uses to talk to the display.
 
-Think of I2C as a messaging system. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate (10, 25)"), and the screen follows the order almost instantly. That's why we only need those two special wires: 
+Think of I²C as a messaging system. The Arduino drops instructions into the tube ("Turn on lightbulb at grid coordinate (10, 25)"), and the screen follows the order almost instantly. 
+
+That's why we only need those two special wires: 
 
 - SDA (the data tube) 
 - SCL (the clock that keeps the deliveries on schedule)
