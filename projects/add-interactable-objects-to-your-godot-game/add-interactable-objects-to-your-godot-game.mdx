@@ -9,7 +9,7 @@ header: https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/pro
 bannerImage: https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/projects%2Fadd-interactable-objects-to-your-godot-game%2Fbanner.webp?alt=media
 readTime: 30
 prerequisites: Godot basics, a player character built with CharacterBody2D
-versions: Godot 4
+versions: Godot 4.6
 courses:
   - python
 tags:
@@ -27,9 +27,9 @@ Well, wonder no more! In this project tutorial, you'll learn how to build a flex
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/interactGif.gif" style={{ width: "100%", height: "auto" }} alt="Preview" />
 
-I first built this system while developing _[Before I Fade](https://www.codedex.io/community/project-showcase/ojhHfwsuyZZKPpU52UTg)_ for the Codédex Game Jam. The game is a murder mystery where you play as a ghost, searching for clues to uncover the truth behind your own death. Despite its simplicity, this single interaction system ended up powering everything from examining clues to progressing the story.
+I first built this system while developing _[Before I Fade](https://www.codedex.io/community/project-showcase/ojhHfwsuyZZKPpU52UTg)_ for the Codédex Game Jam. The game is a murder mystery where you play as a ghost, searching for clues to uncover the truth behind your own death. 
 
-Once you finish this tutorial, you'll start spotting it all throughout the game... and hopefully find plenty of ways to use it in your own projects!
+Despite its simplicity, this single interaction system ended up powering everything from examining clues to progressing the story. Once you finish this tutorial, you'll start spotting it all throughout the game... and hopefully find plenty of ways to use it in your own projects!
 
 Let's get started.
 
@@ -37,11 +37,15 @@ Let's get started.
 
 Before I jump into building the interact feature, I’ll walk through how I set up the project.
 
-First, go ahead and download [this folder](https://drive.google.com/drive/folders/1PFkQHH8nX4CnLZWXYhQ5pWgJmV__gRTQ), as it contains all the assets that I will be using in this tutorial. Next, download Godot from [this website](https://godotengine.org/) if you don't already have it installed, and make sure the version is at least 4.6. Now open Godot, and click create in the top left corner:
+First, go ahead and download this [asset folder](https://drive.google.com/drive/folders/1PFkQHH8nX4CnLZWXYhQ5pWgJmV__gRTQ), as it contains all the assets that I will be using in this tutorial. Next, download Godot from [the official website](https://godotengine.org) if you don't already have it installed. 
+
+Now open Godot, and click "+ Create" in the top left corner:
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/createProjectInGodot.png" />
 
-A popup menu will appear, make sure you select compatibility in the renderer option, and then click on create:
+**Note:** Some screenshots may look different if you're using a version of Godot other than 4.6.
+
+A popup menu will appear. Make sure you select "Compatibility" in the Renderer option, and then click "Create":
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/CompatabilitySettingGodot.png" />
 
@@ -54,7 +58,7 @@ Now right click on the resources folder in the bottom left of your screen and th
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/folderCreationGodot.png" />
 
 
-Name this folder “assets”, and copy over all the files from the drive folder you downloaded earlier into this new assets folder.
+Name this folder “assets”, and copy over all the files from the drive folder you downloaded earlier into this new **assets** folder.
 
 Now, in the left panel, click on the "+" icon:
 
@@ -64,14 +68,14 @@ Now add a node component and name it whatever you like (you can do this by doubl
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/addNode2.png" />
 
-Create a new folder inside the resources folder and name it “scenes”. Now press ```ctrl + s``` on your keyboard to bring up the save menu and click on the scenes folder, then save to save your new scene to the scenes folder.
+Create a new folder inside the resources folder and name it **scenes**. Now press <kbd>ctrl</kbd> + <kbd>s</kbd> on your keyboard to bring up the save menu and click on the **scenes** folder, then save to save your new scene to the **scenes** folder.
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/saveScene.png" />
 
 Now we have all the ground work setup, your file manager in the bottom left should be looking something like this:
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/fileSystemGodot.png" />
-Now drag and drop the Background.png file into the editor screen:
+Now drag and drop the **Background.png** file into the editor screen:
 
 <video width="100%" controls>
   <source src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/backgroundImageAddition.mp4" type="video/mp4" />
@@ -86,7 +90,8 @@ Make sure to also drag in the asset called “E”, next to each of the objects 
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/ESetup.png" />
 
-Now, we also need to add labels for the text that will appear when we interact with an object. Click on an object in the left panel, then ```ctrl + a```, search for “label” and add it. Now click on your new label node, and in its right panel you should see a box to type text. Add whatever text you want to see when you interact with that object, and move the text on top of the black bar.
+Now, we also need to add labels for the text that will appear when we interact with an object. Click on an object in the left panel, then <kbd>ctrl</kbd> + <kbd>a</kbd>, search for “label” and add it. Now click on your new label node, and in its right panel you should see a box to type text. Add whatever text you want to see when you interact with that object, and move the text on top of the black bar.
+
 It should look something like this:
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/labelText.png" />
@@ -99,7 +104,7 @@ Make sure to add a label for the other objects, so you can have different text f
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/EAndLabelVisibility.png" />
 
-With that setup, you can watch [this video](https://www.youtube.com/watch?v=3M3olvGE-EI) to set up a simple character in Godot, you can use the boyGhostSingle.png file for the texture. Make sure to save your character into the scenes folder. 
+With that setup, you can watch [this video](https://www.youtube.com/watch?v=3M3olvGE-EI) to set up a simple character in Godot, you can use the **boyGhostSingle.png** file for the texture. Make sure to save your character into the scenes folder. 
 
 Drag your character in like you have been doing for everything else, and bam, we’re done setting up the project. Now let’s move on to adding our interactive feature!
 
@@ -112,7 +117,7 @@ Let’s discuss how to handle collisions using collision shapes in Godot. But fi
 
 With that being said, let’s use these ingredients to make our game come alive!
 
-In your game, add a `StaticBody2D` node to all the items that require a barrier collision. You can do this by clicking on the item in the left panel you want to add it to, then pressing ```ctrl + a``` , and choosing a `StaticBody2D` node. After that, attach a `CollisionShape2D` node to the `StaticBody2D`. It should look something like this:
+In your game, add a `StaticBody2D` node to all the items that require a barrier collision. You can do this by clicking on the item in the left panel you want to add it to, then pressing <kbd>ctrl</kbd> + <kbd>a</kbd>, and choosing a `StaticBody2D` node. After that, attach a `CollisionShape2D` node to the `StaticBody2D`. It should look something like this:
 
 <ImageZoom src="https://raw.githubusercontent.com/codedex-io/projects/refs/heads/main/projects/add-interactable-objects-to-your-godot-game/assets/staticBodySetup.png" />
 
